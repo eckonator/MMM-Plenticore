@@ -11,7 +11,9 @@ module.exports = NodeHelper.create({
     https: false,
     password: "",
     pollinterval: 20000,
+    debugMode: false,
     pVStringCount: null,
+    proccessData: null,
     loginSessionId: false,
     hasBattery: false,
     payloadData: [
@@ -525,16 +527,21 @@ module.exports = NodeHelper.create({
         "devices.local.battery.ExternControl_MaxChargePowerAbs"
     ],
 
+
     start: function () {
         console.log(this.name + ' is started!');
     },
 
     apiCall: async function (method, endpoint, data, callback) {
         if (!method) {
-            console.log('Missing method in http request');
+            if(this.debugMode) {
+                console.log('Missing method in http request');
+            }
             return;
         } else if (!endpoint) {
-            console.log('Missing endpoint in http request');
+            if(this.debugMode) {
+                console.log('Missing endpoint in http request');
+            }
             return;
         }
         method = method.toUpperCase();
@@ -565,7 +572,9 @@ module.exports = NodeHelper.create({
         } else {
             request = http.request(reqOpts);
         }
-        console.log('Making request to endpoint ' + endpoint + ' with data ' + JSON.stringify(reqOpts));
+        if(this.debugMode) {
+            console.log('Making request to endpoint ' + endpoint + ' with data ' + JSON.stringify(reqOpts));
+        }
         request.on('response', function (response) {
             let code = response.statusCode;
             let headers = response.headers;
@@ -575,9 +584,13 @@ module.exports = NodeHelper.create({
                 body += chunk;
             });
             response.on('end', function () {
-                console.log('Result of request: ' + JSON.stringify({code: code, headers: headers, body: body}));
+                if(this.debugMode) {
+                    console.log('Result of request: ' + JSON.stringify({code: code, headers: headers, body: body}));
+                }
                 if (code === 401 || code === 403) {
-                    console.log('Request failed: ' + JSON.stringify({code: code, headers: headers, body: body}));
+                    if(this.debugMode) {
+                        console.log('Request failed: ' + JSON.stringify({code: code, headers: headers, body: body}));
+                    }
                     return;
                 }
                 callback && callback(body, code, headers);
@@ -585,15 +598,21 @@ module.exports = NodeHelper.create({
         });
 
         request.on('error', function (error) {
-            console.log('API request failed with error ' + JSON.stringify(error));
+            if(this.debugMode) {
+                console.log('API request failed with error ' + JSON.stringify(error));
+            }
             callback && callback('', 0, null);
         });
         request.on('close', function () {
-            console.log('API connection closed');
+            if(this.debugMode) {
+                console.log('API connection closed');
+            }
         });
 
         if (data && (method === 'POST' || method === 'PUT')) {
-            console.log('Sending post data to request: ' + data);
+            if(this.debugMode) {
+                console.log('Sending post data to request: ' + data);
+            }
             request.write(data);
         }
         request.end();
@@ -611,14 +630,18 @@ module.exports = NodeHelper.create({
 
             current.apiCall('POST', 'auth/start', payload, function (body, code, headers) {
                 if (code !== 200) {
-                    console.log('Login failed with code ' + code + ': ' + body);
+                    if(current.debugMode) {
+                        console.log('Login failed with code ' + code + ': ' + body);
+                    }
                     callback && callback(true);
                     return;
                 }
 
                 let json = JSON.parse(body);
                 if (!json.nonce) {
-                    console.log('No nonce in json reply to start: ' + body);
+                    if(current.debugMode) {
+                        console.log('No nonce in json reply to start: ' + body);
+                    }
                     callback && callback(true);
                     return;
                 }
@@ -646,14 +669,18 @@ module.exports = NodeHelper.create({
 
                 current.apiCall('POST', 'auth/finish', payload, function (body, code, headers) {
                     if (code !== 200) {
-                        console.log('auth/finish failed with code ' + code + ': ' + body);
+                        if(current.debugMode) {
+                            console.log('auth/finish failed with code ' + code + ': ' + body);
+                        }
                         callback && callback(true);
                         return;
                     }
 
                     let json = JSON.parse(body);
                     if (!json.token) {
-                        console.log('No nonce in json reply to finish: ' + body);
+                        if(current.debugMode) {
+                            console.log('No nonce in json reply to finish: ' + body);
+                        }
                         callback && callback(true);
                         return;
                     }
@@ -661,7 +688,9 @@ module.exports = NodeHelper.create({
                     let bitSignature = KOSTAL.base64.toBits(json.signature);
 
                     if (!KOSTAL.bitArray.equal(bitSignature, cHmac)) {
-                        console.log('Signature verification failed!');
+                        if(current.debugMode) {
+                            console.log('Signature verification failed!');
+                        }
                         callback && callback(true);
                         return;
                     }
@@ -690,45 +719,57 @@ module.exports = NodeHelper.create({
 
                     current.apiCall('POST', 'auth/create_session', payload, function (body, code, headers) {
                         if (code !== 200) {
-                            console.log('auth/create_session failed with code ' + code + ': ' + body);
+                            if(current.debugMode) {
+                                console.log('auth/create_session failed with code ' + code + ': ' + body);
+                            }
                             callback && callback(true);
                             return;
                         }
 
                         let json = JSON.parse(body);
                         if (!json.sessionId) {
-                            console.log('No session id in json reply to create session: ' + body);
+                            if(current.debugMode) {
+                                console.log('No session id in json reply to create session: ' + body);
+                            }
                             callback && callback(true);
                             return;
                         }
 
                         current.loginSessionId = json.sessionId;
-                        console.log('Session id is ' + current.loginSessionId);
+                        console.log('MMM-Plenticore: Session id is ' + current.loginSessionId);
 
                         current.loginSuccess(callback);
                     });
                 });
             });
         } catch (error) {
-            console.error('Error:', error);
+            if(this.debugMode) {
+                console.error('Error:', error);
+            }
         }
     },
 
     loginSuccess: function (callback) {
         let current = this;
         current.apiCall('GET', 'auth/me', null, function (body, code, headers) {
-            console.log('auth/me: ' + body);
+            if(current.debugMode) {
+                console.log('auth/me: ' + body);
+            }
         });
 
         current.apiCall('GET', 'modules', null, function (body, code, headers) {
             if (code !== 200) {
-                console.log('Could not get supported modules information. Code: ' + code + ', contents: ' + body);
+                if(current.debugMode) {
+                    console.log('Could not get supported modules information. Code: ' + code + ', contents: ' + body);
+                }
                 return;
             }
 
             let json = JSON.parse(body);
             if (!json.length) {
-                console.log('No valid module info in json reply: ' + body);
+                if(current.debugMode) {
+                    console.log('No valid module info in json reply: ' + body);
+                }
                 return;
             }
 
@@ -776,7 +817,9 @@ module.exports = NodeHelper.create({
             }
 
             if (params.processdataids.length > 0) {
-                console.log('Requesting ' + params.processdataids.join(',') + ' from ' + pl.moduleid + ' (processdata)');
+                if(current.debugMode) {
+                    console.log('Requesting ' + params.processdataids.join(',') + ' from ' + pl.moduleid + ' (processdata)');
+                }
                 payload.push(params);
             }
         }
@@ -796,23 +839,206 @@ module.exports = NodeHelper.create({
             }
 
             if (params.settingids.length > 0) {
-                console.log('Requesting ' + params.settingids.join(',') + ' from ' + pl.moduleid + ' (settings)');
+                if(current.debugMode) {
+                    console.log('Requesting ' + params.settingids.join(',') + ' from ' + pl.moduleid + ' (settings)');
+                }
                 payload_2.push(params);
+            }
+        }
+
+        current.apiCall('POST', 'processdata', payload, function (body, code, headers) {
+            if (code === 200) {
+                current.proccessData = JSON.parse(body);
+
+                for (const obj of current.proccessData) {
+                    console.log(`Module ID: ${obj.moduleid}`);
+                    for (const data of obj.processdata) {
+                        console.log(data);
+                    }
+                    console.log('---');
+                }
+
+                current.processDataResponse(body, 'processdata');
+            } else {
+                if(current.debugMode) {
+                    console.log('Requesting processdata - ' + JSON.stringify(payload) + ') failed with code ' + code + ': ' + body);
+                }
+            }
+
+            current.apiCall('POST', 'settings', payload_2, function (body, code, headers) {
+                if (code === 200) {
+                    console.log('MMM-Plenticore: Polling data from Plenticroe API...');
+                    current.processDataResponse(body, 'settings');
+                } else {
+                    if(current.debugMode) {
+                        console.log('Requesting settings - ' + JSON.stringify(payload) + ') failed with code ' + code + ': ' + body);
+                    }
+                }
+
+                let polling = setTimeout(function () {
+                    current.pollStates(pollingTime);
+                }, pollingTime);
+            });
+        });
+    },
+
+    processDataResponse: function (data, dataname) {
+        let json = JSON.parse(data);
+        if ('undefined' === typeof json) {
+            if(this.debugMode) {
+                console.log('Invalid json data received: ' + data);
+            }
+            return;
+        }
+
+        if (json.length <= 0 || !json[0]) {
+            if(this.debugMode) {
+                console.log('Invalid json data received: ' + JSON.stringify(data));
+            }
+            return;
+        }
+
+        let mappings_base = (dataname === 'settings' ? this.payloadSettings : this.payloadData);
+
+        let ac_p = null;
+        let home_p = null;
+        let grid_p = null;
+
+        let energy_yield = {
+            'Day': null,
+            'Month': null,
+            'Year': null,
+            'Total': null
+        };
+
+        let energy_own = {
+            'Day': null,
+            'Month': null,
+            'Year': null,
+            'Total': null
+        };
+
+        for (let j = 0; j < json.length; j++) {
+            let moduleid = json[j].moduleid;
+            if (json[j][dataname]) {
+                for (let i in json[j][dataname]) {
+                    let setting = json[j][dataname][i];
+
+                    let mappings = {};
+                    for (let m = 0; m < mappings_base.length; m++) {
+                        if (mappings_base[m].moduleid === moduleid) {
+                            mappings = mappings_base[m].mappings;
+                            break;
+                        }
+                    }
+
+                    if (mappings[setting.id]) {
+                        let obj = mappings[setting.id];
+                        let objid = obj.id;
+                        let objtype = obj.type;
+
+                        if (objtype === 'boolean') {
+                            if(this.debugMode) {
+                                console.log('Converting ' + setting.value + ' to bool for ' + objid);
+                            }
+                            setting.value = (setting.value === 1 || setting.value === '1');
+                        } else if (objtype === 'int') {
+                            if(this.debugMode) {
+                                console.log('Converting ' + setting.value + ' to int for ' + objid);
+                            }
+                            setting.value = parseInt(setting.value);
+                        } else if (objtype === 'float') {
+                            if(this.debugMode) {
+                                console.log('Converting ' + setting.value + ' to float for ' + objid);
+                            }
+                            setting.value = parseFloat(setting.value);
+                        } else if (objtype === 'timestamp') {
+                            if(this.debugMode) {
+                                console.log('Converting ' + setting.value + ' to timestamp for ' + objid);
+                            }
+                            setting.value = parseInt(setting.value) * 1000;
+                        }
+
+                        let set_yield_grid = false;
+                        let set_grid_p = false;
+                        if (objid === 'devices.local.ac.P') {
+                            ac_p = setting.value;
+                            set_grid_p = true;
+                        } else if (objid === 'devices.local.Home_P') {
+                            home_p = setting.value;
+                            set_grid_p = true;
+                        } else if (objid === 'scb.statistic.EnergyFlow.OwnConsumptionRateDay') {
+                            energy_own['Day'] = setting.value;
+                            set_yield_grid = 'Day';
+                        } else if (objid === 'scb.statistic.EnergyFlow.OwnConsumptionRateMonth') {
+                            energy_own['Month'] = setting.value;
+                            set_yield_grid = 'Month';
+                        } else if (objid === 'scb.statistic.EnergyFlow.OwnConsumptionRateYear') {
+                            energy_own['Year'] = setting.value;
+                            set_yield_grid = 'Year';
+                        } else if (objid === 'scb.statistic.EnergyFlow.OwnConsumptionRateTotal') {
+                            energy_own['Total'] = setting.value;
+                            set_yield_grid = 'Total';
+                        } else if (objid === 'scb.statistic.EnergyFlow.YieldDay') {
+                            energy_yield['Day'] = setting.value;
+                            set_yield_grid = 'Day';
+                        } else if (objid === 'scb.statistic.EnergyFlow.YieldMonth') {
+                            energy_yield['Month'] = setting.value;
+                            set_yield_grid = 'Month';
+                        } else if (objid === 'scb.statistic.EnergyFlow.YieldYear') {
+                            energy_yield['Year'] = setting.value;
+                            set_yield_grid = 'Year';
+                        } else if (objid === 'scb.statistic.EnergyFlow.YieldTotal') {
+                            energy_yield['Total'] = setting.value;
+                            set_yield_grid = 'Total';
+                        }
+
+                        if (set_grid_p === true && ac_p !== null && home_p !== null) {
+                            grid_p = Math.round(ac_p - home_p);
+                            if (grid_p > 0) {
+                                if(this.debugMode) {
+                                    console.log('Setting devices.local.ToGrid_P to ' + grid_p + " now.");
+                                }
+                            }
+                        } else if (set_yield_grid !== false && energy_yield[set_yield_grid] !== null && energy_own[set_yield_grid] !== null) {
+                            grid_p = Math.round(energy_yield[set_yield_grid] * (1 - (energy_own[set_yield_grid] / 100)));
+                            if (grid_p > 0) {
+                                if(this.debugMode) {
+                                    console.log('Setting scb.statistic.EnergyFlow.EnergyToGrid' + set_yield_grid + ' to ' + grid_p + " now.");
+                                }
+                            }
+                        }
+
+                        if(this.debugMode) {
+                            console.log('Setting ' + objid + ' to ' + setting.value + " now.");
+                        }
+                    } else {
+                        if(this.debugMode) {
+                            console.log('Not in mappings: ' + setting.id + ' = ' + setting.value);
+                        }
+                    }
+                }
             }
         }
     },
 
     logout: async function (callback) {
         try {
-            this.apiCall('POST', 'auth/logout', null, function(body, code, headers) {
-                if(code !== 200) {
-                    console.log('Logout failed with code ' + code);
+            this.apiCall('POST', 'auth/logout', null, function (body, code, headers) {
+                if (code !== 200) {
+                    if(this.debugMode) {
+                        console.log('Logout failed with code ' + code);
+                    }
                 } else {
-                    console.log('Logged out from API');
+                    if(this.debugMode) {
+                        console.log('Logged out from API');
+                    }
                 }
             });
         } catch (error) {
-            console.error('Error:', error);
+            if(this.debugMode) {
+                console.error('Error:', error);
+            }
         }
     },
 
@@ -824,12 +1050,15 @@ module.exports = NodeHelper.create({
                 this.https = payload.https;
                 this.password = payload.password;
                 this.pollinterval = payload.pollinterval;
+                this.debugMode = payload.debugMode;
                 await this.login();
-                console.log(this.loginSessionId);
+                if(this.debugMode) {
+                    console.log(this.loginSessionId);
+                }
                 //await this.logout();
             } catch (error) {
                 console.error('Error:', error);
             }
         }
-    },
+    }
 });
