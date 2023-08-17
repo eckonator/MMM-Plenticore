@@ -1,4 +1,5 @@
 .mmm-plenticore-wrapper svg {
+    font-family: "Open Sans", Arial, sans-serif;
     display: block;
     width: 100%;
     height: auto;
@@ -22,6 +23,6 @@
 }
 
 .mmm-plenticore-wrapper .r {
-    font-family: Verdana, Verdana;
+    font-family: "Open Sans", Arial, sans-serif;
     font-size: 20px;
 }
