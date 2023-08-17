@@ -849,14 +849,14 @@ module.exports = NodeHelper.create({
         current.apiCall('POST', 'processdata', payload, function (body, code, headers) {
             if (code === 200) {
                 current.proccessData = JSON.parse(body);
-
                 for (const obj of current.proccessData) {
                     console.log(`Module ID: ${obj.moduleid}`);
                     for (const data of obj.processdata) {
-                        console.log(data);
+                        console.log(data.id + ': ' + data.value);
                     }
                     console.log('---');
                 }
+                console.log('MMM-Plenticore: Polling newest data from Plenticroe API...');
 
                 current.processDataResponse(body, 'processdata');
             } else {
@@ -867,7 +867,6 @@ module.exports = NodeHelper.create({
 
             current.apiCall('POST', 'settings', payload_2, function (body, code, headers) {
                 if (code === 200) {
-                    console.log('MMM-Plenticore: Polling data from Plenticroe API...');
                     current.processDataResponse(body, 'settings');
                 } else {
                     if(current.debugMode) {
