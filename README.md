@@ -41,4 +41,6 @@ Todo...
 
 ## Screenshots
 
-Todo...
+![alt text][ss_01]
+
+[ss_01]: MMM-Plenticore.jpg "Example of MMM-Plenticore module at work"

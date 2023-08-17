@@ -1,0 +1,27 @@
+.mmm-plenticore-wrapper svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.mmm-plenticore-wrapper .q,
+.mmm-plenticore-wrapper .r {
+    isolation: isolate;
+}
+
+.mmm-plenticore-wrapper .s {
+    fill: none;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    stroke-width: 3px;
+}
+
+.mmm-plenticore-wrapper .t {
+    fill: #fff;
+    stroke-width: 0px;
+}
+
+.mmm-plenticore-wrapper .r {
+    font-family: Verdana, Verdana;
+    font-size: 20px;
+}

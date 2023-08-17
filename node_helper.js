@@ -16,6 +16,7 @@ module.exports = NodeHelper.create({
     proccessData: null,
     loginSessionId: false,
     hasBattery: false,
+    plenticoreData: null,
     payloadData: [
         {
             "moduleid": "devices:local",
@@ -849,14 +850,28 @@ module.exports = NodeHelper.create({
         current.apiCall('POST', 'processdata', payload, function (body, code, headers) {
             if (code === 200) {
                 current.proccessData = JSON.parse(body);
+                let Dc_P = 0;
                 let HomeBat_P = 0;
                 let HomeGrid_P = 0;
+                let Home_P_Sell = 0;
                 let HomeOwn_P = 0;
                 let HomePv_P = 0;
                 let Home_P = 0;
+                let Home_State = '';
+                let Inverter_P = 0;
                 for (const obj of current.proccessData) {
+                    if('devices:local:ac' === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if('P' === data.id) {
+                                Inverter_P = Inverter_P + data.value;
+                            }
+                        }
+                    }
                     if('devices:local' === obj.moduleid) {
                         for (const data of obj.processdata) {
+                            if('Dc_P' === data.id) {
+                                Dc_P = Dc_P + data.value;
+                            }
                             if('HomeBat_P' === data.id) {
                                 HomeBat_P = HomeBat_P + data.value;
                             }
@@ -887,12 +902,32 @@ module.exports = NodeHelper.create({
                     // }
                     // console.log('---');
                 }
-                console.log('HomeBat_P (Batterie): ' + HomeBat_P + ' Watt');
-                console.log('HomeGrid_P (Bezug): ' + HomeGrid_P + ' Watt');+
-                console.log('HomeOwn_P (Wechselrichter): ' + HomeOwn_P + ' Watt');
-                console.log('HomePv_P (PV-Generator): ' + HomePv_P + ' Watt');
-                console.log('Home_P (Hausverbrauch): ' + Home_P + ' Watt');
+                if(current.debugMode) {
+                    console.log('PvGenerator: ' + Math.ceil(Dc_P));
+                    console.log('Inverter: ' + Inverter_P);
+                    console.log('HomeConsumption: ' + Home_P);
+                    console.log('GridPurchase: ' + HomeGrid_P);
+                    console.log('GridSale: ' + Home_P_Sell);
+                    console.log('State: ' + Home_State);
+                }
+
                 console.log('MMM-Plenticore: Polling newest data from Plenticroe API...');
+
+                if(Home_P >= Inverter_P){
+                    Home_State = 'buy';
+                } else {
+                    Home_State = 'sell'
+                    Home_P_Sell = Inverter_P-Home_P;
+                }
+                current.plenticoreData = {
+                    PvGenerator: Math.ceil(Dc_P),
+                    Inverter: Inverter_P,
+                    HomeConsumption: Home_P,
+                    GridPurchase: HomeGrid_P,
+                    GridSale: Home_P_Sell,
+                    State: Home_State
+                }
+                current.sendSocketNotification("PLENTICORE_DATA", current.plenticoreData);
 
                 current.processDataResponse(body, 'processdata');
             } else {
