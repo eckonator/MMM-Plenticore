@@ -11,6 +11,7 @@ module.exports = NodeHelper.create({
     https: false,
     password: "",
     pollinterval: 20000,
+    pVStringCount: null,
     loginSessionId: false,
     hasBattery: false,
     payloadData: [
@@ -741,7 +742,7 @@ module.exports = NodeHelper.create({
                 }
             }
 
-            PVStringCount = pvcount;
+            current.pVStringCount = pvcount;
 
             current.pollStates(current.pollinterval);
         });
@@ -757,9 +758,9 @@ module.exports = NodeHelper.create({
         for (let p = 0; p < this.payloadData.length; p++) {
             let pl = this.payloadData[p];
 
-            if (PVStringCount < 3 && pl.moduleid === 'devices:local:pv3') {
+            if (current.pVStringCount < 3 && pl.moduleid === 'devices:local:pv3') {
                 continue;
-            } else if (PVStringCount < 2 && pl.moduleid === 'devices:local:pv2') {
+            } else if (current.pVStringCount < 2 && pl.moduleid === 'devices:local:pv2') {
                 continue;
             }
 
