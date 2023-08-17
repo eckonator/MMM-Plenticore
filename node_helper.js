@@ -849,13 +849,49 @@ module.exports = NodeHelper.create({
         current.apiCall('POST', 'processdata', payload, function (body, code, headers) {
             if (code === 200) {
                 current.proccessData = JSON.parse(body);
+                let HomeBat_P = 0;
+                let HomeGrid_P = 0;
+                let HomeOwn_P = 0;
+                let HomePv_P = 0;
+                let Home_P = 0;
                 for (const obj of current.proccessData) {
-                    console.log(`Module ID: ${obj.moduleid}`);
-                    for (const data of obj.processdata) {
-                        console.log(data.id + ': ' + data.value);
+                    if('devices:local' === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if('HomeBat_P' === data.id) {
+                                HomeBat_P = HomeBat_P + data.value;
+                            }
+                            if('HomeGrid_P' === data.id) {
+                                HomeGrid_P = HomeGrid_P + data.value;
+                            }
+                            if('HomeOwn_P' === data.id) {
+                                HomeOwn_P = HomeOwn_P + data.value;
+                            }
+                            if('HomePv_P' === data.id) {
+                                HomePv_P = HomePv_P + data.value;
+                            }
+                            if('Home_P' === data.id) {
+                                Home_P = Home_P + data.value;
+                            }
+                        }
                     }
-                    console.log('---');
+                    // console.log(`Module ID: ${obj.moduleid}`);
+                    // for (const data of obj.processdata) {
+                    //     console.log(data.id + ': ' + data.value);
+                    //     // if(typeof data.value === 'number' && data.value > 10000) {
+                    //     //     let value = (data.value/1000).toFixed(1) + ' kWh';
+                    //     //     console.log(data.id + ': ' + value);
+                    //     // } else {
+                    //     //     let value = data.value;
+                    //     //     console.log(data.id + ': ' + value);
+                    //     // }
+                    // }
+                    // console.log('---');
                 }
+                console.log('HomeBat_P (Batterie): ' + HomeBat_P + ' Watt');
+                console.log('HomeGrid_P (Bezug): ' + HomeGrid_P + ' Watt');+
+                console.log('HomeOwn_P (Wechselrichter): ' + HomeOwn_P + ' Watt');
+                console.log('HomePv_P (PV-Generator): ' + HomePv_P + ' Watt');
+                console.log('Home_P (Hausverbrauch): ' + Home_P + ' Watt');
                 console.log('MMM-Plenticore: Polling newest data from Plenticroe API...');
 
                 current.processDataResponse(body, 'processdata');
