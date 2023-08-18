@@ -1,5 +1,4 @@
 const NodeHelper = require('node_helper');
-const axios = require('axios');
 const {KOSTAL} = require("./lib/kostal");
 const https = require("https");
 const http = require("http");
