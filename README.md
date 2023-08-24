@@ -28,7 +28,8 @@ var config = {
                 port: "80",
                 https: false,
                 password: "",
-                pollinterval: 20000
+                pollinterval: 20000,
+                debugMode: false
             }
         }
     ]
