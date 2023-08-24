@@ -1,4 +1,4 @@
-# MagicMirrorModule-MMM-Plenticore (NOT FINISHED YET...)
+# MagicMirrorModule-MMM-Plenticore
 
 ## Codebase from https://github.com/pixcept/ioBroker.plenticore
 
