@@ -62,7 +62,7 @@ Module.register("MMM-Plenticore", {
                 }
             }
         } else {
-            if (this.pentiData.GridPurchase < 0) {
+            if (this.pentiData.GridSale < 0) {
                 if (this.pentiData.GridSale >= 1000) {
                     this.pentiData.Grid = ((this.pentiData.GridSale / 1000).toFixed(2)*(-1)) + ' kW >';
                 } else {
@@ -85,9 +85,9 @@ Module.register("MMM-Plenticore", {
 
         if (this.pentiData.Battery < 0) {
             if (this.pentiData.Battery >= 1000) {
-                this.pentiData.Battery = '< ' + (this.pentiData.Battery / 1000).toFixed(2) + ' kW';
+                this.pentiData.Battery = '< ' + ((this.pentiData.Battery / 1000).toFixed(2)*(-1)) + ' kW';
             } else {
-                this.pentiData.Battery = '< ' + Math.floor(this.pentiData.Battery) + ' W';
+                this.pentiData.Battery = '< ' + (Math.floor(this.pentiData.Battery)*(-1)) + ' W';
             }
         } else {
             if (this.pentiData.Battery >= 1000) {
