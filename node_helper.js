@@ -858,8 +858,23 @@ module.exports = NodeHelper.create({
                 let Home_P = 0;
                 let Home_State = '';
                 let Inverter_P = 0;
+                let Battery_P = 0;
                 for (const obj of current.proccessData) {
-                    if('devices:local:ac' === obj.moduleid) {
+                    if('devices:local:pv1' === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if('P' === data.id) {
+                                Inverter_P = Inverter_P + data.value;
+                            }
+                        }
+                    }
+                    if('devices:local:pv2' === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if('P' === data.id) {
+                                Inverter_P = Inverter_P + data.value;
+                            }
+                        }
+                    }
+                    if('devices:local:pv3' === obj.moduleid) {
                         for (const data of obj.processdata) {
                             if('P' === data.id) {
                                 Inverter_P = Inverter_P + data.value;
@@ -888,6 +903,13 @@ module.exports = NodeHelper.create({
                             }
                         }
                     }
+                    if('devices:local:battery' === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if('P' === data.id) {
+                                Battery_P = Battery_P + data.value;
+                            }
+                        }
+                    }
                     // console.log(`Module ID: ${obj.moduleid}`);
                     // for (const data of obj.processdata) {
                     //     console.log(data.id + ': ' + data.value);
@@ -904,6 +926,7 @@ module.exports = NodeHelper.create({
                 if(current.debugMode) {
                     console.log('PvGenerator: ' + Math.ceil(Dc_P));
                     console.log('Inverter: ' + Inverter_P);
+                    console.log('Battery: ' + Battery_P);
                     console.log('HomeConsumption: ' + Home_P);
                     console.log('GridPurchase: ' + HomeGrid_P);
                     console.log('GridSale: ' + Home_P_Sell);
@@ -921,6 +944,7 @@ module.exports = NodeHelper.create({
                 current.plenticoreData = {
                     PvGenerator: Math.ceil(Dc_P),
                     Inverter: Inverter_P,
+                    Battery: Battery_P,
                     HomeConsumption: Home_P,
                     GridPurchase: HomeGrid_P,
                     GridSale: Home_P_Sell,

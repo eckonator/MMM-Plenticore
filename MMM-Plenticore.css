@@ -5,24 +5,24 @@
     height: auto;
 }
 
-.mmm-plenticore-wrapper .q,
-.mmm-plenticore-wrapper .r {
+.mmm-plenticore-wrapper .v {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 20px;
+}
+
+.mmm-plenticore-wrapper .v,
+.mmm-plenticore-wrapper .w {
     isolation: isolate;
 }
 
-.mmm-plenticore-wrapper .s {
+.mmm-plenticore-wrapper .x {
     fill: none;
     stroke: #fff;
     stroke-miterlimit: 10;
     stroke-width: 3px;
 }
 
-.mmm-plenticore-wrapper .t {
+.mmm-plenticore-wrapper .y {
     fill: #fff;
     stroke-width: 0px;
-}
-
-.mmm-plenticore-wrapper .r {
-    font-family: "Open Sans", Arial, sans-serif;
-    font-size: 20px;
 }
