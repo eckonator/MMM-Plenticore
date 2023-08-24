@@ -40,7 +40,7 @@ Module.register("MMM-Plenticore", {
         if (this.pentiData.Inverter >= 1000) {
             this.pentiData.Inverter = (this.pentiData.Inverter / 1000).toFixed(2) + ' kW >';
         } else {
-            this.pentiData.Inverter = this.pentiData.Inverter + ' W >';
+            this.pentiData.Inverter = Math.floor(this.pentiData.Inverter) + ' W >';
         }
 
         if(this.pentiData.Inverter === '0 W >') {
@@ -48,16 +48,32 @@ Module.register("MMM-Plenticore", {
         }
 
         if (this.pentiData.State === 'buy') {
-            if (this.pentiData.GridPurchase >= 1000) {
-                this.pentiData.Grid = '< ' + ((this.pentiData.GridPurchase / 1000).toFixed(2)*(-1)) + ' kW';
+            if (this.pentiData.GridPurchase < 0) {
+                if (this.pentiData.GridPurchase >= 1000) {
+                    this.pentiData.Grid = '< ' + ((this.pentiData.GridPurchase / 1000).toFixed(2)*(-1)) + ' kW';
+                } else {
+                    this.pentiData.Grid = '< ' + (Math.floor(this.pentiData.GridPurchase)*(-1)) + ' W';
+                }
             } else {
-                this.pentiData.Grid = '< ' + (Math.floor(this.pentiData.GridPurchase)*(-1)) + ' W';
+                if (this.pentiData.GridPurchase >= 1000) {
+                    this.pentiData.Grid = '< ' + (this.pentiData.GridPurchase / 1000).toFixed(2) + ' kW';
+                } else {
+                    this.pentiData.Grid = '< ' + Math.floor(this.pentiData.GridPurchase) + ' W';
+                }
             }
         } else {
-            if (this.pentiData.GridSale >= 1000) {
-                this.pentiData.Grid = (this.pentiData.GridSale / 1000).toFixed(2) + ' kW >';
+            if (this.pentiData.GridPurchase < 0) {
+                if (this.pentiData.GridSale >= 1000) {
+                    this.pentiData.Grid = ((this.pentiData.GridSale / 1000).toFixed(2)*(-1)) + ' kW >';
+                } else {
+                    this.pentiData.Grid = (Math.floor(this.pentiData.GridSale)*(-1)) + ' W >';
+                }
             } else {
-                this.pentiData.Grid = Math.floor(this.pentiData.GridSale) + ' W >';
+                if (this.pentiData.GridSale >= 1000) {
+                    this.pentiData.Grid = (this.pentiData.GridSale / 1000).toFixed(2) + ' kW >';
+                } else {
+                    this.pentiData.Grid = Math.floor(this.pentiData.GridSale) + ' W >';
+                }
             }
         }
 
