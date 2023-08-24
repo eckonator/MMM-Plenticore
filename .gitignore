@@ -1,6 +1,7 @@
 # Various Node ignoramuses.
 
 logs
+package-lock.json
 *.log
 npm-debug.log*
 pids
