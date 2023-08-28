@@ -47,7 +47,7 @@ Module.register("MMM-Plenticore", {
 
         if(this.pentiData.State === 'buy') {
             if(this.pentiData.GridPurchase >= 1000) {
-                this.pentiData.Grid = '< ' + ((this.pentiData.GridPurchase / 1000).toFixed(2)*(-1)) + ' kW';
+                this.pentiData.Grid = '< ' + (this.pentiData.GridPurchase / 1000).toFixed(2) + ' kW';
             } else if(this.pentiData.GridPurchase < 0) {
                 this.pentiData.Grid = '< ' + (Math.floor(this.pentiData.GridPurchase)*(-1)) + ' W';
             } else {
@@ -55,7 +55,7 @@ Module.register("MMM-Plenticore", {
             }
         } else {
             if(this.pentiData.GridSale >= 1000) {
-                this.pentiData.Grid = ((this.pentiData.GridSale / 1000).toFixed(2)*(-1)) + ' kW >';
+                this.pentiData.Grid = (this.pentiData.GridSale / 1000).toFixed(2) + ' kW >';
             } else if(this.pentiData.GridSale < 0) {
                 this.pentiData.Grid = (Math.floor(this.pentiData.GridSale)*(-1)) + ' W >';
             } else {
@@ -72,7 +72,7 @@ Module.register("MMM-Plenticore", {
         }
 
         if(this.pentiData.Battery >= 1000) {
-            this.pentiData.Battery = '< ' + ((this.pentiData.Battery / 1000).toFixed(2)*(-1)) + ' kW';
+            this.pentiData.Battery = '< ' + (this.pentiData.Battery / 1000).toFixed(2) + ' kW';
         } else if(this.pentiData.Battery < 0) {
             this.pentiData.Battery = '< ' + (Math.floor(this.pentiData.Battery)*(-1)) + ' W';
         } else {
