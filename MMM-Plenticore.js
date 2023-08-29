@@ -45,6 +45,10 @@ Module.register("MMM-Plenticore", {
             this.pentiData.Inverter = Math.floor(this.pentiData.Inverter) + ' W >';
         }
 
+        if(this.pentiData.Battery < 0) {
+            this.pentiData.GridSale = this.pentiData.GridSale - (this.pentiData.Battery*(-1));
+        }
+
         if(this.pentiData.State === 'buy') {
             if(this.pentiData.GridPurchase >= 1000) {
                 this.pentiData.Grid = '< ' + (this.pentiData.GridPurchase / 1000).toFixed(2) + ' kW';
@@ -72,13 +76,13 @@ Module.register("MMM-Plenticore", {
         }
 
         if(this.pentiData.Battery >= 1000) {
-            this.pentiData.Battery = '< ' + (this.pentiData.Battery / 1000).toFixed(2) + ' kW';
-        } else if(this.pentiData.Battery <= 1000) {
-            this.pentiData.Battery = '< ' + ((this.pentiData.Battery / 1000).toFixed(2)*(-1)) + ' kW';
+            this.pentiData.Battery = (this.pentiData.Battery / 1000).toFixed(2) + ' kW >';
+        } else if(this.pentiData.Battery <= -1000) {
+            this.pentiData.Battery = '< ' +((this.pentiData.Battery / 1000).toFixed(2)*(-1)) + ' kW';
         } else if(this.pentiData.Battery < 0) {
             this.pentiData.Battery = '< ' + (Math.floor(this.pentiData.Battery)*(-1)) + ' W';
         } else {
-            this.pentiData.Battery = Math.floor(this.pentiData.Battery) + ' W >';
+            this.pentiData.Battery = '< ' + Math.floor(this.pentiData.Battery) + ' W >';
         }
 
         this.updateDom();
