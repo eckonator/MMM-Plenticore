@@ -73,6 +73,8 @@ Module.register("MMM-Plenticore", {
 
         if(this.pentiData.Battery >= 1000) {
             this.pentiData.Battery = '< ' + (this.pentiData.Battery / 1000).toFixed(2) + ' kW';
+        } else if(this.pentiData.Battery <= 1000) {
+            this.pentiData.Battery = '< ' + ((this.pentiData.Battery / 1000).toFixed(2)*(-1)) + ' kW';
         } else if(this.pentiData.Battery < 0) {
             this.pentiData.Battery = '< ' + (Math.floor(this.pentiData.Battery)*(-1)) + ' W';
         } else {
