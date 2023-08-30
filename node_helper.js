@@ -9,6 +9,9 @@ module.exports = NodeHelper.create({
     port: "80",
     https: false,
     password: "",
+    ownAPIServerStarted: false,
+    runOwnJsonApiServerInLocalNetwork: false,
+    ownJsonApiServerPort: 4000,
     pollinterval: 20000,
     debugMode: false,
     pVStringCount: null,
@@ -942,12 +945,12 @@ module.exports = NodeHelper.create({
                     Home_P_Sell = Inverter_P-Home_P;
                 }
                 current.plenticoreData = {
-                    PvGenerator: Math.ceil(Dc_P),
-                    Inverter: Inverter_P,
-                    Battery: Battery_P,
-                    HomeConsumption: Home_P,
-                    GridPurchase: HomeGrid_P,
-                    GridSale: Home_P_Sell,
+                    PvGenerator: Math.floor(Dc_P),
+                    Inverter: Math.floor(Inverter_P),
+                    Battery: Math.floor(Battery_P),
+                    HomeConsumption: Math.floor(Home_P),
+                    GridPurchase: Math.floor(HomeGrid_P),
+                    GridSale: Math.floor(Home_P_Sell),
                     State: Home_State
                 }
                 current.sendSocketNotification("PLENTICORE_DATA", current.plenticoreData);
@@ -1135,6 +1138,17 @@ module.exports = NodeHelper.create({
         }
     },
 
+    startOwnJsonApiServer: async function() {
+        const self = this;
+        const requestListener = function(req, res) {
+            res.setHeader("Content-Type", "application/json; charset=utf-8");
+            res.writeHead(200);
+            res.end(JSON.stringify(self.plenticoreData));
+        };
+        const app = http.createServer(requestListener);
+        app.listen(self.ownJsonApiServerPort);
+    },
+
     socketNotificationReceived: async function (notification, payload) {
         if (notification === 'FETCH_PLENTICORE_DATA') {
             try {
@@ -1143,8 +1157,14 @@ module.exports = NodeHelper.create({
                 this.https = payload.https;
                 this.password = payload.password;
                 this.pollinterval = payload.pollinterval;
+                this.runOwnJsonApiServerInLocalNetwork = payload.runOwnJsonApiServerInLocalNetwork;
+                this.ownJsonApiServerPort = payload.ownJsonApiServerPort;
                 this.debugMode = payload.debugMode;
                 await this.login();
+                if(this.runOwnJsonApiServerInLocalNetwork && !this.ownAPIServerStarted) {
+                    this.ownAPIServerStarted = true;
+                    await this.startOwnJsonApiServer();
+                }
                 if(this.debugMode) {
                     console.log(this.loginSessionId);
                 }

@@ -29,6 +29,8 @@ var config = {
                 https: false,
                 password: "",
                 pollinterval: 20000,
+                runOwnJsonApiServerInLocalNetwork: false,
+                ownJsonApiServerPort: 4000,
                 debugMode: false
             }
         }

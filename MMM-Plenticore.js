@@ -6,6 +6,8 @@ Module.register("MMM-Plenticore", {
         https: false,
         password: "",
         pollinterval: 20000,
+        runOwnJsonApiServerInLocalNetwork: false,
+        ownJsonApiServerPort: 4000,
         debugMode: false
     },
 
@@ -82,7 +84,7 @@ Module.register("MMM-Plenticore", {
         } else if(this.pentiData.Battery < 0) {
             this.pentiData.Battery = '< ' + (Math.floor(this.pentiData.Battery)*(-1)) + ' W';
         } else {
-            this.pentiData.Battery = Math.floor(this.pentiData.Battery) + ' W >';
+            this.pentiData.Battery = '< ' + Math.floor(this.pentiData.Battery) + ' W >';
         }
 
         this.updateDom();
