@@ -936,7 +936,7 @@ module.exports = NodeHelper.create({
                     Home_P_Sell = Inverter_P-Home_P;
                 }
 
-                if(current.debugMode) {
+                //if(current.debugMode) {
                     console.log('PvGenerator: ' + Math.floor(Dc_P));
                     console.log('Inverter: ' + Math.floor(Inverter_P));
                     console.log('Battery: ' + Math.floor(Battery_P));
@@ -944,7 +944,7 @@ module.exports = NodeHelper.create({
                     console.log('GridPurchase: ' + Math.floor(HomeGrid_P));
                     console.log('GridSale: ' + Math.floor(Home_P_Sell));
                     console.log('State: ' + Math.floor(Home_State));
-                }
+                //}
 
                 current.plenticoreData = {
                     PvGenerator: Math.floor(Dc_P),
