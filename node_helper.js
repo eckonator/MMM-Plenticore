@@ -852,56 +852,49 @@ module.exports = NodeHelper.create({
         current.apiCall('POST', 'processdata', payload, function (body, code, headers) {
             if (code === 200) {
                 current.proccessData = JSON.parse(body);
-                let Dc_P = 0;
-                let HomeBat_P = 0;
-                let HomeGrid_P = 0;
-                let Home_P_Sell = 0;
-                let HomeOwn_P = 0;
-                let HomePv_P = 0;
-                let Home_P = 0;
-                let Home_State = '';
                 let Inverter_P = 0;
+                let Grid_P = 0;
+                let Home_P = 0;
+                let PvGenerator_P = 0;
                 let Battery_P = 0;
                 let Battery_SoC = 0;
                 for (const obj of current.proccessData) {
+                    if('devices:local:ac' === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if('L1_P' === data.id) {
+                                Inverter_P = Inverter_P + data.value;
+                            }
+                            if('L2_P' === data.id) {
+                                Inverter_P = Inverter_P + data.value;
+                            }
+                            if('L3_P' === data.id) {
+                                Inverter_P = Inverter_P + data.value;
+                            }
+                        }
+                    }
                     if('devices:local:pv1' === obj.moduleid) {
                         for (const data of obj.processdata) {
                             if('P' === data.id) {
-                                Inverter_P = Inverter_P + data.value;
+                                PvGenerator_P = PvGenerator_P + data.value;
                             }
                         }
                     }
                     if('devices:local:pv2' === obj.moduleid) {
                         for (const data of obj.processdata) {
                             if('P' === data.id) {
-                                Inverter_P = Inverter_P + data.value;
+                                PvGenerator_P = PvGenerator_P + data.value;
                             }
                         }
                     }
                     if('devices:local:pv3' === obj.moduleid) {
                         for (const data of obj.processdata) {
                             if('P' === data.id) {
-                                Inverter_P = Inverter_P + data.value;
+                                PvGenerator_P = PvGenerator_P + data.value;
                             }
                         }
                     }
                     if('devices:local' === obj.moduleid) {
                         for (const data of obj.processdata) {
-                            if('Dc_P' === data.id) {
-                                Dc_P = Dc_P + data.value;
-                            }
-                            if('HomeBat_P' === data.id) {
-                                HomeBat_P = HomeBat_P + data.value;
-                            }
-                            if('HomeGrid_P' === data.id) {
-                                HomeGrid_P = HomeGrid_P + data.value;
-                            }
-                            if('HomeOwn_P' === data.id) {
-                                HomeOwn_P = HomeOwn_P + data.value;
-                            }
-                            if('HomePv_P' === data.id) {
-                                HomePv_P = HomePv_P + data.value;
-                            }
                             if('Home_P' === data.id) {
                                 Home_P = Home_P + data.value;
                             }
@@ -933,33 +926,24 @@ module.exports = NodeHelper.create({
 
                 console.log('MMM-Plenticore: Polling newest data from Plenticroe API...');
 
-                if(Home_P >= Inverter_P){
-                    Home_State = 'buy';
-                } else {
-                    Home_State = 'sell'
-                    Home_P_Sell = Inverter_P-Home_P;
-                }
+                Grid_P = Home_P - Inverter_P;
 
                 //if(current.debugMode) {
-                    console.log('PvGenerator: ' + Math.floor(Dc_P));
                     console.log('Inverter: ' + Math.floor(Inverter_P));
+                    console.log('PvGenerator: ' + Math.floor(PvGenerator_P));
                     console.log('Battery: ' + Math.floor(Battery_P));
                     console.log('Battery_SoC: ' + Math.floor(Battery_SoC));
                     console.log('HomeConsumption: ' + Math.floor(Home_P));
-                    console.log('GridPurchase: ' + Math.floor(HomeGrid_P));
-                    console.log('GridSale: ' + Math.floor(Home_P_Sell));
-                    console.log('State: ' + Home_State);
+                    console.log('Grid: ' + Math.floor(Grid_P));
                 //}
 
                 current.plenticoreData = {
-                    PvGenerator: Math.floor(Dc_P),
                     Inverter: Math.floor(Inverter_P),
+                    PvGenerator: Math.floor(PvGenerator_P),
                     Battery: Math.floor(Battery_P),
                     Battery_SoC: Math.floor(Battery_SoC),
                     HomeConsumption: Math.floor(Home_P),
-                    GridPurchase: Math.floor(HomeGrid_P),
-                    GridSale: Math.floor(Home_P_Sell),
-                    State: Home_State
+                    Grid: Math.floor(Grid_P)
                 }
                 current.sendSocketNotification("PLENTICORE_DATA", current.plenticoreData);
 

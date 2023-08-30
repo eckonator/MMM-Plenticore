@@ -39,42 +39,32 @@ Module.register("MMM-Plenticore", {
     updateDomWithData: function (data) {
         this.pentiData = data;
 
-        if(this.pentiData.Inverter >= 1000) {
-            this.pentiData.Inverter = (this.pentiData.Inverter / 1000).toFixed(2) + ' kW >';
-        } else if(this.pentiData.Inverter <= 0) {
-            this.pentiData.Inverter = 'Standby';
+        if(this.pentiData.PvGenerator >= 1000) {
+            this.pentiData.PvGenerator = (this.pentiData.PvGenerator / 1000).toFixed(2) + ' kW >';
+        } else if(this.pentiData.PvGenerator <= 0) {
+            this.pentiData.PvGenerator = 'Standby';
         } else {
-            this.pentiData.Inverter = Math.floor(this.pentiData.Inverter) + ' W >';
-        }
-
-        if(this.pentiData.Battery < 0) {
-            this.pentiData.GridSale = this.pentiData.GridSale - (this.pentiData.Battery*(-1));
-        }
-
-        if(this.pentiData.State === 'buy') {
-            if(this.pentiData.GridPurchase >= 1000) {
-                this.pentiData.Grid = '< ' + (this.pentiData.GridPurchase / 1000).toFixed(2) + ' kW';
-            } else if(this.pentiData.GridPurchase < 0) {
-                this.pentiData.Grid = '< ' + (Math.floor(this.pentiData.GridPurchase)*(-1)) + ' W';
-            } else {
-                this.pentiData.Grid = '< ' + Math.floor(this.pentiData.GridPurchase) + ' W';
-            }
-        } else {
-            if(this.pentiData.GridSale >= 1000) {
-                this.pentiData.Grid = (this.pentiData.GridSale / 1000).toFixed(2) + ' kW >';
-            } else if(this.pentiData.GridSale < 0) {
-                this.pentiData.Grid = (Math.floor(this.pentiData.GridSale)*(-1)) + ' W >';
-            } else {
-                this.pentiData.Grid = Math.floor(this.pentiData.GridSale) + ' W >';
-            }
+            this.pentiData.PvGenerator = Math.floor(this.pentiData.PvGenerator) + ' W >';
         }
 
         if(this.pentiData.HomeConsumption >= 1000) {
             this.pentiData.HomeConsumption = (this.pentiData.HomeConsumption / 1000).toFixed(2) + ' kW >';
+        } else if(this.pentiData.HomeConsumption <= -1000) {
+            this.pentiData.HomeConsumption = '< ' +((this.pentiData.HomeConsumption / 1000).toFixed(2)*(-1)) + ' kW';
         } else if(this.pentiData.HomeConsumption < 0) {
-            this.pentiData.HomeConsumption = (Math.floor(this.pentiData.HomeConsumption)*(-1)) + ' W >';
+            this.pentiData.HomeConsumption = '< ' + (Math.floor(this.pentiData.HomeConsumption)*(-1)) + ' W';
         } else {
             this.pentiData.HomeConsumption = Math.floor(this.pentiData.HomeConsumption) + ' W >';
+        }
+
+        if(this.pentiData.Grid >= 1000) {
+            this.pentiData.Grid = (this.pentiData.Grid / 1000).toFixed(2) + ' kW >';
+        } else if(this.pentiData.Grid <= -1000) {
+            this.pentiData.Grid = '< ' +((this.pentiData.Grid / 1000).toFixed(2)*(-1)) + ' kW';
+        } else if(this.pentiData.Grid < 0) {
+            this.pentiData.Grid = '< ' + (Math.floor(this.pentiData.Grid)*(-1)) + ' W';
+        } else {
+            this.pentiData.Grid = Math.floor(this.pentiData.Grid) + ' W >';
         }
 
         if(this.pentiData.Battery >= 1000) {
@@ -86,6 +76,8 @@ Module.register("MMM-Plenticore", {
         } else {
             this.pentiData.Battery = Math.floor(this.pentiData.Battery) + ' W >';
         }
+
+        this.pentiData.Battery_SoC = 'Batterie: ' + this.pentiData.Battery_SoC + ' %';
 
         this.updateDom();
     },
@@ -105,7 +97,7 @@ Module.register("MMM-Plenticore", {
             '      <rect id="e" class="y" x="79.57" y="200.01" width="125.24" height="35.72" rx="11.91" ry="11.91"/>\n' +
             '      <g id="f">\n' +
             '        <g class="w">\n' +
-            '          <text class="v" transform="translate(95.36 224.96)"><tspan x="0" y="0" class="textBox" id="plentiInverter">--- W</tspan></text>\n' +
+            '          <text class="v" transform="translate(95.36 224.96)"><tspan x="0" y="0" class="textBox" id="plentiPvGenerator">--- W</tspan></text>\n' +
             '        </g>\n' +
             '      </g>\n' +
             '    </g>\n' +
@@ -153,22 +145,33 @@ Module.register("MMM-Plenticore", {
             '        </g>\n' +
             '      </g>\n' +
             '    </g>\n' +
+            '    <g id="v" data-name="n">\n' +
+            '      <rect id="w" data-name="o" class="y" x="195.78" y="360.9" width="166" height="35.72" rx="11.91" ry="11.91"/>\n' +
+            '      <g id="x" data-name="p">\n' +
+            '        <g class="w">\n' +
+            '          <text class="v" transform="translate(212 386)"><tspan x="0" y="0" class="textBox" id="plentiBatterySoC">Batterie: -- %</tspan></text>\n' +
+            '        </g>\n' +
+            '      </g>\n' +
+            '    </g>\n' +
             '    <path class="y" d="m112.59,394.82h-8.42v-8.56h-23.27v8.56h-22.16v-8.56h-23.27v8.56h-8.49c-5.37,0-9.76,4.39-9.76,9.75v56.35c0,5.36,4.39,9.74,9.76,9.74h85.61c5.36.01,9.76-4.37,9.76-9.74v-56.36c0-5.36-4.4-9.75-9.76-9.75Zm-54.43,43.94h-11.18v11.23h-7.17v-11.23h-11.19v-7.12h11.19v-11.18h7.17v11.18h11.18v7.12Zm49.82-.65h-23.68v-7.37h23.68v7.37Z"/>\n' +
             '  </g>\n' +
             '</svg>';
 
         if(this.pentiData) {
-            let textElement = wrapperEl.querySelector('#plentiInverter');
-            textElement.textContent = this.pentiData.Inverter;
-
-            textElement = wrapperEl.querySelector('#plentiGrid');
-            textElement.textContent = this.pentiData.Grid;
+            let textElement = wrapperEl.querySelector('#plentiPvGenerator');
+            textElement.textContent = this.pentiData.PvGenerator;
 
             textElement = wrapperEl.querySelector('#plentiHome');
             textElement.textContent = this.pentiData.HomeConsumption;
 
+            textElement = wrapperEl.querySelector('#plentiGrid');
+            textElement.textContent = this.pentiData.Grid;
+
             textElement = wrapperEl.querySelector('#plentiBattery');
             textElement.textContent = this.pentiData.Battery;
+
+            textElement = wrapperEl.querySelector('#plentiBatterySoC');
+            textElement.textContent = this.pentiData.Battery_SoC;
         }
 
         return wrapperEl;
