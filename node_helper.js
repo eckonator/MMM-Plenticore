@@ -943,7 +943,7 @@ module.exports = NodeHelper.create({
                     console.log('HomeConsumption: ' + Math.floor(Home_P));
                     console.log('GridPurchase: ' + Math.floor(HomeGrid_P));
                     console.log('GridSale: ' + Math.floor(Home_P_Sell));
-                    console.log('State: ' + Math.floor(Home_State));
+                    console.log('State: ' + Home_State);
                 //}
 
                 current.plenticoreData = {
