@@ -926,15 +926,6 @@ module.exports = NodeHelper.create({
                     // }
                     // console.log('---');
                 }
-                if(current.debugMode) {
-                    console.log('PvGenerator: ' + Math.ceil(Dc_P));
-                    console.log('Inverter: ' + Inverter_P);
-                    console.log('Battery: ' + Battery_P);
-                    console.log('HomeConsumption: ' + Home_P);
-                    console.log('GridPurchase: ' + HomeGrid_P);
-                    console.log('GridSale: ' + Home_P_Sell);
-                    console.log('State: ' + Home_State);
-                }
 
                 console.log('MMM-Plenticore: Polling newest data from Plenticroe API...');
 
@@ -944,6 +935,17 @@ module.exports = NodeHelper.create({
                     Home_State = 'sell'
                     Home_P_Sell = Inverter_P-Home_P;
                 }
+
+                if(current.debugMode) {
+                    console.log('PvGenerator: ' + Math.floor(Dc_P));
+                    console.log('Inverter: ' + Math.floor(Inverter_P));
+                    console.log('Battery: ' + Math.floor(Battery_P));
+                    console.log('HomeConsumption: ' + Math.floor(Home_P));
+                    console.log('GridPurchase: ' + Math.floor(HomeGrid_P));
+                    console.log('GridSale: ' + Math.floor(Home_P_Sell));
+                    console.log('State: ' + Math.floor(Home_State));
+                }
+
                 current.plenticoreData = {
                     PvGenerator: Math.floor(Dc_P),
                     Inverter: Math.floor(Inverter_P),
