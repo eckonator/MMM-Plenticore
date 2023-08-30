@@ -862,6 +862,7 @@ module.exports = NodeHelper.create({
                 let Home_State = '';
                 let Inverter_P = 0;
                 let Battery_P = 0;
+                let Battery_SoC = 0;
                 for (const obj of current.proccessData) {
                     if('devices:local:pv1' === obj.moduleid) {
                         for (const data of obj.processdata) {
@@ -911,6 +912,9 @@ module.exports = NodeHelper.create({
                             if('P' === data.id) {
                                 Battery_P = Battery_P + data.value;
                             }
+                            if('SoC' === data.id) {
+                                Battery_SoC = Battery_SoC + data.value;
+                            }
                         }
                     }
                     // console.log(`Module ID: ${obj.moduleid}`);
@@ -940,6 +944,7 @@ module.exports = NodeHelper.create({
                     console.log('PvGenerator: ' + Math.floor(Dc_P));
                     console.log('Inverter: ' + Math.floor(Inverter_P));
                     console.log('Battery: ' + Math.floor(Battery_P));
+                    console.log('Battery_SoC: ' + Math.floor(Battery_SoC));
                     console.log('HomeConsumption: ' + Math.floor(Home_P));
                     console.log('GridPurchase: ' + Math.floor(HomeGrid_P));
                     console.log('GridSale: ' + Math.floor(Home_P_Sell));
@@ -950,6 +955,7 @@ module.exports = NodeHelper.create({
                     PvGenerator: Math.floor(Dc_P),
                     Inverter: Math.floor(Inverter_P),
                     Battery: Math.floor(Battery_P),
+                    Battery_SoC: Math.floor(Battery_SoC),
                     HomeConsumption: Math.floor(Home_P),
                     GridPurchase: Math.floor(HomeGrid_P),
                     GridSale: Math.floor(Home_P_Sell),
