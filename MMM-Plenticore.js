@@ -84,7 +84,7 @@ Module.register("MMM-Plenticore", {
         } else if(this.pentiData.Battery < 0) {
             this.pentiData.Battery = '< ' + (Math.floor(this.pentiData.Battery)*(-1)) + ' W';
         } else {
-            this.pentiData.Battery = '< ' + Math.floor(this.pentiData.Battery) + ' W >';
+            this.pentiData.Battery = Math.floor(this.pentiData.Battery) + ' W >';
         }
 
         this.updateDom();
