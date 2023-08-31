@@ -149,7 +149,7 @@ Module.register("MMM-Plenticore", {
             '      <rect id="w" data-name="o" class="y" x="195.78" y="360.9" width="166" height="35.72" rx="11.91" ry="11.91"/>\n' +
             '      <g id="x" data-name="p">\n' +
             '        <g class="w">\n' +
-            '          <text class="v" transform="translate(212 386)"><tspan x="0" y="0" class="textBox" id="plentiBatterySoC">Batterie: -- %</tspan></text>\n' +
+            '          <text class="v" transform="translate(209 386)"><tspan x="0" y="0" class="textBox" id="plentiBatterySoC">Batterie: -- %</tspan></text>\n' +
             '        </g>\n' +
             '      </g>\n' +
             '    </g>\n' +
