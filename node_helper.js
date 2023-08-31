@@ -926,7 +926,11 @@ module.exports = NodeHelper.create({
 
                 console.log('MMM-Plenticore: Polling newest data from Plenticroe API...');
 
-                Grid_P = Home_P - Inverter_P;
+                if(Home_P >= Inverter_P) {
+                    Grid_P = Inverter_P - Home_P;
+                } else {
+                    Grid_P = Home_P - Inverter_P;
+                }
 
                 //if(current.debugMode) {
                     console.log('Inverter: ' + Math.floor(Inverter_P));
