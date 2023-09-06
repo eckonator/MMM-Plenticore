@@ -6,6 +6,7 @@ Module.register("MMM-Plenticore", {
         https: false,
         password: "",
         pollinterval: 20000,
+        showStats: true,
         runOwnJsonApiServerInLocalNetwork: false,
         ownJsonApiServerPort: 4000,
         debugMode: false
@@ -80,6 +81,53 @@ Module.register("MMM-Plenticore", {
         this.pentiData.Battery_SoC = 'Batterie: ' + this.pentiData.Battery_SoC + ' %';
 
         this.updateDom();
+    },
+
+    createRingChart: function(wrapper, selector, percent) {
+        const ringTarget = wrapper.querySelector(selector);
+
+        if (!ringTarget) {
+            return;
+        }
+
+        const svgNS = "http://www.w3.org/2000/svg";
+        const svg = document.createElementNS(svgNS, "svg");
+        svg.setAttribute("width", "50");
+        svg.setAttribute("height", "50");
+
+        const backgroundCircle = document.createElementNS(svgNS, "circle");
+        backgroundCircle.setAttribute("cx", "25");
+        backgroundCircle.setAttribute("cy", "25");
+        backgroundCircle.setAttribute("r", "20");
+        backgroundCircle.setAttribute("fill", "none");
+        backgroundCircle.setAttribute("stroke", "rgba(255,255,255,.1)");
+        backgroundCircle.setAttribute("stroke-width", "5");
+        svg.appendChild(backgroundCircle);
+
+        const ring = document.createElementNS(svgNS, "circle");
+        ring.setAttribute("cx", "25");
+        ring.setAttribute("cy", "25");
+        ring.setAttribute("r", "20");
+        ring.setAttribute("fill", "none");
+        ring.setAttribute("stroke", "white");
+        ring.setAttribute("stroke-width", "5");
+        const circumference = 2 * Math.PI * 20;
+        ring.setAttribute("stroke-dasharray", circumference);
+        ring.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
+        svg.appendChild(ring);
+
+        const text = document.createElementNS(svgNS, "text");
+        text.setAttribute("x", "25");
+        text.setAttribute("y", "25");
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("dominant-baseline", "middle");
+        text.setAttribute("font-size", "10");
+        text.setAttribute("fill", "white");
+        text.textContent = percent + "%";
+        svg.appendChild(text);
+
+        ringTarget.innerHTML = '';
+        ringTarget.appendChild(svg);
     },
 
     // Override getDom method
@@ -174,6 +222,75 @@ Module.register("MMM-Plenticore", {
             textElement.textContent = this.pentiData.Battery_SoC;
         }
 
+        if(this.config.showStats && this.pentiData) {
+            wrapperEl.innerHTML = wrapperEl.innerHTML + '<div id="plenti-stats">\n' +
+                '    <header class="module-header">Statistik</header>\n' +
+                '    <div id="plenti-stats-inner" class="container">\n' +
+                '        <div class="row">\n' +
+                '            <div id="plenti-todayCount" class="col-12 col-md-6">\n' +
+                '                <h5>Heute</h5>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Verbrauch</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-todayConsumption"></div>\n' +
+                '                </div>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Autarkie</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-todayAutarky"></div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '            <div id="plenti-monthCount" class="col-12 col-md-6">\n' +
+                '                <h5>Monat</h5>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Verbrauch</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-monthConsumption"></div>\n' +
+                '                </div>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Autarkie</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-monthAutarky"></div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '        <div class="row">\n' +
+                '            <div id="plenti-yearCount" class="col-12 col-md-6">\n' +
+                '                <h5>Jahr</h5>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Verbrauch</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-yearConsumption"></div>\n' +
+                '                </div>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Autarkie</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-yearAutarky"></div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '            <div id="plenti-totalCount" class="col-12 col-md-6">\n' +
+                '                <h5>Total</h5>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Verbrauch</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-totalConsumption"></div>\n' +
+                '                </div>\n' +
+                '                <div class="col-md-6">\n' +
+                '                    <h6>Autarkie</h6>\n' +
+                '                    <div class="ring-chart" id="plenti-totalAutarky"></div>\n' +
+                '                </div>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>';
+
+            this.createRingChart(wrapperEl, '#plenti-todayConsumption', this.pentiData.Statistic_OwnConsumptionRate_Day);
+            this.createRingChart(wrapperEl, '#plenti-todayAutarky', this.pentiData.Statistic_Autarky_Day);
+
+            this.createRingChart(wrapperEl, '#plenti-monthConsumption', this.pentiData.Statistic_OwnConsumptionRate_Month);
+            this.createRingChart(wrapperEl, '#plenti-monthAutarky', this.pentiData.Statistic_Autarky_Month);
+
+            this.createRingChart(wrapperEl, '#plenti-yearConsumption', this.pentiData.Statistic_OwnConsumptionRate_Year);
+            this.createRingChart(wrapperEl, '#plenti-yearAutarky', this.pentiData.Statistic_Autarky_Year);
+
+            this.createRingChart(wrapperEl, '#plenti-totalConsumption', this.pentiData.Statistic_OwnConsumptionRate_Total);
+            this.createRingChart(wrapperEl, '#plenti-totalAutarky', this.pentiData.Statistic_Autarky_Total);
+        }
+
         return wrapperEl;
+
     },
 });

@@ -26,3 +26,30 @@
     fill: #fff;
     stroke-width: 0px;
 }
+
+.mmm-plenticore-wrapper #plenti-stats h3,
+.mmm-plenticore-wrapper #plenti-stats h4,
+.mmm-plenticore-wrapper #plenti-stats h5,
+.mmm-plenticore-wrapper #plenti-stats h6 {
+    margin: 0;
+    text-align: center;
+}
+
+.mmm-plenticore-wrapper #plenti-stats .container:after,
+.mmm-plenticore-wrapper #plenti-stats .container .col-md-6:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.mmm-plenticore-wrapper #plenti-stats .container .col-md-6 {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+.mmm-plenticore-wrapper #plenti-stats .container .col-md-6 svg {
+    display: block;
+    width: 50px;
+    margin: 0 auto 10px;
+}

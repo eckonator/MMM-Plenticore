@@ -29,6 +29,7 @@ var config = {
                 https: false,
                 password: "",
                 pollinterval: 20000,
+                showStats: true,
                 runOwnJsonApiServerInLocalNetwork: false,
                 ownJsonApiServerPort: 4000,
                 debugMode: false
@@ -46,4 +47,4 @@ Todo...
 
 ![alt text][ss_01]
 
-[ss_01]: MMM-Plenticore.jpg "Example of MMM-Plenticore module at work"
+[ss_01]: MMM-Plenticore.png "Example of MMM-Plenticore module at work"
