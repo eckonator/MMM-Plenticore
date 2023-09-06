@@ -949,125 +949,98 @@ module.exports = NodeHelper.create({
                             if ('Statistic:Autarky:Day' === data.id) {
                                 Statistic_Autarky_Day = data.value;
                             }
-
                             if ('Statistic:Autarky:Month' === data.id) {
                                 Statistic_Autarky_Month = data.value;
                             }
-
                             if ('Statistic:Autarky:Total' === data.id) {
                                 Statistic_Autarky_Total = data.value;
                             }
-
                             if ('Statistic:Autarky:Year' === data.id) {
                                 Statistic_Autarky_Year = data.value;
                             }
-
                             if ('Statistic:CO2Saving:Day' === data.id) {
                                 Statistic_CO2Saving_Day = data.value;
                             }
-
                             if ('Statistic:CO2Saving:Month' === data.id) {
                                 Statistic_CO2Saving_Month = data.value;
                             }
-
                             if ('Statistic:CO2Saving:Total' === data.id) {
                                 Statistic_CO2Saving_Total = data.value;
                             }
-
                             if ('Statistic:CO2Saving:Year' === data.id) {
                                 Statistic_CO2Saving_Year = data.value;
                             }
-
                             if ('Statistic:EnergyHome:Day' === data.id) {
                                 Statistic_EnergyHome_Day = data.value;
                             }
-
                             if ('Statistic:EnergyHome:Month' === data.id) {
                                 Statistic_EnergyHome_Month = data.value;
                             }
-
                             if ('Statistic:EnergyHome:Total' === data.id) {
                                 Statistic_EnergyHome_Total = data.value;
                             }
-
                             if ('Statistic:EnergyHome:Year' === data.id) {
                                 Statistic_EnergyHome_Year = data.value;
                             }
-
                             if ('Statistic:EnergyHomeBat:Day' === data.id) {
                                 Statistic_EnergyHomeBat_Day = data.value;
                             }
-
                             if ('Statistic:EnergyHomeBat:Month' === data.id) {
                                 Statistic_EnergyHomeBat_Month = data.value;
                             }
-
                             if ('Statistic:EnergyHomeBat:Total' === data.id) {
                                 Statistic_EnergyHomeBat_Total = data.value;
                             }
-
                             if ('Statistic:EnergyHomeBat:Year' === data.id) {
                                 Statistic_EnergyHomeBat_Year = data.value;
                             }
-
                             if ('Statistic:EnergyHomeGrid:Day' === data.id) {
                                 Statistic_EnergyHomeGrid_Day = data.value;
                             }
-
                             if ('Statistic:EnergyHomeGrid:Month' === data.id) {
                                 Statistic_EnergyHomeGrid_Month = data.value;
                             }
-
                             if ('Statistic:EnergyHomeGrid:Total' === data.id) {
                                 Statistic_EnergyHomeGrid_Total = data.value;
                             }
-
                             if ('Statistic:EnergyHomeGrid:Year' === data.id) {
                                 Statistic_EnergyHomeGrid_Year = data.value;
                             }
-
                             if ('Statistic:EnergyHomePv:Day' === data.id) {
                                 Statistic_EnergyHomePv_Day = data.value;
                             }
-
                             if ('Statistic:EnergyHomePv:Month' === data.id) {
                                 Statistic_EnergyHomePv_Month = data.value;
                             }
-
                             if ('Statistic:EnergyHomePv:Total' === data.id) {
                                 Statistic_EnergyHomePv_Total = data.value;
                             }
-
                             if ('Statistic:EnergyHomePv:Year' === data.id) {
                                 Statistic_EnergyHomePv_Year = data.value;
                             }
-
                             if ('Statistic:OwnConsumptionRate:Day' === data.id) {
                                 Statistic_OwnConsumptionRate_Day = data.value;
                             }
-
                             if ('Statistic:OwnConsumptionRate:Month' === data.id) {
                                 Statistic_OwnConsumptionRate_Month = data.value;
                             }
-
                             if ('Statistic:OwnConsumptionRate:Total' === data.id) {
                                 Statistic_OwnConsumptionRate_Total = data.value;
                             }
-
                             if ('Statistic:OwnConsumptionRate:Year' === data.id) {
                                 Statistic_OwnConsumptionRate_Year = data.value;
                             }
-
                             if ('Statistic:Yield:Day' === data.id) {
                                 Statistic_Yield_Day = data.value;
                             }
-
                             if ('Statistic:Yield:Month' === data.id) {
                                 Statistic_Yield_Month = data.value;
                             }
-
                             if ('Statistic:Yield:Total' === data.id) {
                                 Statistic_Yield_Total = data.value;
+                            }
+                            if ('Statistic:Yield:Year' === data.id) {
+                                Statistic_Yield_Year = data.value;
                             }
                         }
                     }
