@@ -1063,85 +1063,85 @@ module.exports = NodeHelper.create({
                 Grid_P = Inverter_P - Home_P;
 
                 if(current.debugMode) {
-                    console.log('Inverter: ' + Math.ceil(Inverter_P));
-                    console.log('PvGenerator: ' + Math.ceil(PvGenerator_P));
-                    console.log('Battery: ' + Math.ceil(Battery_P));
-                    console.log('Battery_SoC: ' + Math.ceil(Battery_SoC));
-                    console.log('HomeConsumption: ' + Math.ceil(Home_P));
-                    console.log('Grid: ' + Math.ceil(Grid_P));
-                    console.log('Statistic_Autarky_Day: ' + Math.ceil(Statistic_Autarky_Day));
-                    console.log('Statistic_Autarky_Month: ' + Math.ceil(Statistic_Autarky_Month));
-                    console.log('Statistic_Autarky_Total: ' + Math.ceil(Statistic_Autarky_Total));
-                    console.log('Statistic_Autarky_Year: ' + Math.ceil(Statistic_Autarky_Year));
-                    console.log('Statistic_CO2Saving_Day: ' + Math.ceil(Statistic_CO2Saving_Day));
-                    console.log('Statistic_CO2Saving_Month: ' + Math.ceil(Statistic_CO2Saving_Month));
-                    console.log('Statistic_CO2Saving_Total: ' + Math.ceil(Statistic_CO2Saving_Total));
-                    console.log('Statistic_CO2Saving_Year: ' + Math.ceil(Statistic_CO2Saving_Year));
-                    console.log('Statistic_EnergyHome_Day: ' + Math.ceil(Statistic_EnergyHome_Day));
-                    console.log('Statistic_EnergyHome_Month: ' + Math.ceil(Statistic_EnergyHome_Month));
-                    console.log('Statistic_EnergyHome_Total: ' + Math.ceil(Statistic_EnergyHome_Total));
-                    console.log('Statistic_EnergyHome_Year: ' + Math.ceil(Statistic_EnergyHome_Year));
-                    console.log('Statistic_EnergyHomeBat_Day: ' + Math.ceil(Statistic_EnergyHomeBat_Day));
-                    console.log('Statistic_EnergyHomeBat_Month: ' + Math.ceil(Statistic_EnergyHomeBat_Month));
-                    console.log('Statistic_EnergyHomeBat_Total: ' + Math.ceil(Statistic_EnergyHomeBat_Total));
-                    console.log('Statistic_EnergyHomeBat_Year: ' + Math.ceil(Statistic_EnergyHomeBat_Year));
-                    console.log('Statistic_EnergyHomeGrid_Day: ' + Math.ceil(Statistic_EnergyHomeGrid_Day));
-                    console.log('Statistic_EnergyHomeGrid_Month: ' + Math.ceil(Statistic_EnergyHomeGrid_Month));
-                    console.log('Statistic_EnergyHomeGrid_Total: ' + Math.ceil(Statistic_EnergyHomeGrid_Total));
-                    console.log('Statistic_EnergyHomeGrid_Year: ' + Math.ceil(Statistic_EnergyHomeGrid_Year));
-                    console.log('Statistic_EnergyHomePv_Day: ' + Math.ceil(Statistic_EnergyHomePv_Day));
-                    console.log('Statistic_EnergyHomePv_Month: ' + Math.ceil(Statistic_EnergyHomePv_Month));
-                    console.log('Statistic_EnergyHomePv_Total: ' + Math.ceil(Statistic_EnergyHomePv_Total));
-                    console.log('Statistic_EnergyHomePv_Year: ' + Math.ceil(Statistic_EnergyHomePv_Year));
-                    console.log('Statistic_OwnConsumptionRate_Day: ' + Math.ceil(Statistic_OwnConsumptionRate_Day));
-                    console.log('Statistic_OwnConsumptionRate_Month: ' + Math.ceil(Statistic_OwnConsumptionRate_Month));
-                    console.log('Statistic_OwnConsumptionRate_Total: ' + Math.ceil(Statistic_OwnConsumptionRate_Total));
-                    console.log('Statistic_OwnConsumptionRate_Year: ' + Math.ceil(Statistic_OwnConsumptionRate_Year));
-                    console.log('Statistic_Yield_Day: ' + Math.ceil(Statistic_Yield_Day));
-                    console.log('Statistic_Yield_Month: ' + Math.ceil(Statistic_Yield_Month));
-                    console.log('Statistic_Yield_Total: ' + Math.ceil(Statistic_Yield_Total));
-                    console.log('Statistic_Yield_Year: ' + Math.ceil(Statistic_Yield_Year));
+                    console.log('Inverter: ' + Math.floor(Inverter_P));
+                    console.log('PvGenerator: ' + Math.floor(PvGenerator_P));
+                    console.log('Battery: ' + Math.floor(Battery_P));
+                    console.log('Battery_SoC: ' + Math.floor(Battery_SoC));
+                    console.log('HomeConsumption: ' + Math.floor(Home_P));
+                    console.log('Grid: ' + Math.floor(Grid_P));
+                    console.log('Statistic_Autarky_Day: ' + Math.floor(Statistic_Autarky_Day));
+                    console.log('Statistic_Autarky_Month: ' + Math.floor(Statistic_Autarky_Month));
+                    console.log('Statistic_Autarky_Total: ' + Math.floor(Statistic_Autarky_Total));
+                    console.log('Statistic_Autarky_Year: ' + Math.floor(Statistic_Autarky_Year));
+                    console.log('Statistic_CO2Saving_Day: ' + Math.floor(Statistic_CO2Saving_Day));
+                    console.log('Statistic_CO2Saving_Month: ' + Math.floor(Statistic_CO2Saving_Month));
+                    console.log('Statistic_CO2Saving_Total: ' + Math.floor(Statistic_CO2Saving_Total));
+                    console.log('Statistic_CO2Saving_Year: ' + Math.floor(Statistic_CO2Saving_Year));
+                    console.log('Statistic_EnergyHome_Day: ' + Math.floor(Statistic_EnergyHome_Day));
+                    console.log('Statistic_EnergyHome_Month: ' + Math.floor(Statistic_EnergyHome_Month));
+                    console.log('Statistic_EnergyHome_Total: ' + Math.floor(Statistic_EnergyHome_Total));
+                    console.log('Statistic_EnergyHome_Year: ' + Math.floor(Statistic_EnergyHome_Year));
+                    console.log('Statistic_EnergyHomeBat_Day: ' + Math.floor(Statistic_EnergyHomeBat_Day));
+                    console.log('Statistic_EnergyHomeBat_Month: ' + Math.floor(Statistic_EnergyHomeBat_Month));
+                    console.log('Statistic_EnergyHomeBat_Total: ' + Math.floor(Statistic_EnergyHomeBat_Total));
+                    console.log('Statistic_EnergyHomeBat_Year: ' + Math.floor(Statistic_EnergyHomeBat_Year));
+                    console.log('Statistic_EnergyHomeGrid_Day: ' + Math.floor(Statistic_EnergyHomeGrid_Day));
+                    console.log('Statistic_EnergyHomeGrid_Month: ' + Math.floor(Statistic_EnergyHomeGrid_Month));
+                    console.log('Statistic_EnergyHomeGrid_Total: ' + Math.floor(Statistic_EnergyHomeGrid_Total));
+                    console.log('Statistic_EnergyHomeGrid_Year: ' + Math.floor(Statistic_EnergyHomeGrid_Year));
+                    console.log('Statistic_EnergyHomePv_Day: ' + Math.floor(Statistic_EnergyHomePv_Day));
+                    console.log('Statistic_EnergyHomePv_Month: ' + Math.floor(Statistic_EnergyHomePv_Month));
+                    console.log('Statistic_EnergyHomePv_Total: ' + Math.floor(Statistic_EnergyHomePv_Total));
+                    console.log('Statistic_EnergyHomePv_Year: ' + Math.floor(Statistic_EnergyHomePv_Year));
+                    console.log('Statistic_OwnConsumptionRate_Day: ' + Math.floor(Statistic_OwnConsumptionRate_Day));
+                    console.log('Statistic_OwnConsumptionRate_Month: ' + Math.floor(Statistic_OwnConsumptionRate_Month));
+                    console.log('Statistic_OwnConsumptionRate_Total: ' + Math.floor(Statistic_OwnConsumptionRate_Total));
+                    console.log('Statistic_OwnConsumptionRate_Year: ' + Math.floor(Statistic_OwnConsumptionRate_Year));
+                    console.log('Statistic_Yield_Day: ' + Math.floor(Statistic_Yield_Day));
+                    console.log('Statistic_Yield_Month: ' + Math.floor(Statistic_Yield_Month));
+                    console.log('Statistic_Yield_Total: ' + Math.floor(Statistic_Yield_Total));
+                    console.log('Statistic_Yield_Year: ' + Math.floor(Statistic_Yield_Year));
                 }
 
                 current.plenticoreData = {
-                    Inverter: Math.ceil(Inverter_P),
-                    PvGenerator: Math.ceil(PvGenerator_P),
-                    Battery: Math.ceil(Battery_P),
-                    Battery_SoC: Math.ceil(Battery_SoC),
-                    HomeConsumption: Math.ceil(Home_P),
-                    Grid: Math.ceil(Grid_P),
-                    Statistic_Autarky_Day: Math.ceil(Statistic_Autarky_Day),
-                    Statistic_Autarky_Month: Math.ceil(Statistic_Autarky_Month),
-                    Statistic_Autarky_Total: Math.ceil(Statistic_Autarky_Total),
-                    Statistic_Autarky_Year: Math.ceil(Statistic_Autarky_Year),
-                    Statistic_CO2Saving_Day: Math.ceil(Statistic_CO2Saving_Day),
-                    Statistic_CO2Saving_Month: Math.ceil(Statistic_CO2Saving_Month),
-                    Statistic_CO2Saving_Total: Math.ceil(Statistic_CO2Saving_Total),
-                    Statistic_CO2Saving_Year: Math.ceil(Statistic_CO2Saving_Year),
-                    Statistic_EnergyHome_Day: Math.ceil(Statistic_EnergyHome_Day),
-                    Statistic_EnergyHome_Month: Math.ceil(Statistic_EnergyHome_Month),
-                    Statistic_EnergyHome_Total: Math.ceil(Statistic_EnergyHome_Total),
-                    Statistic_EnergyHome_Year: Math.ceil(Statistic_EnergyHome_Year),
-                    Statistic_EnergyHomeBat_Day: Math.ceil(Statistic_EnergyHomeBat_Day),
-                    Statistic_EnergyHomeBat_Month: Math.ceil(Statistic_EnergyHomeBat_Month),
-                    Statistic_EnergyHomeBat_Total: Math.ceil(Statistic_EnergyHomeBat_Total),
-                    Statistic_EnergyHomeBat_Year: Math.ceil(Statistic_EnergyHomeBat_Year),
-                    Statistic_EnergyHomeGrid_Day: Math.ceil(Statistic_EnergyHomeGrid_Day),
-                    Statistic_EnergyHomeGrid_Month: Math.ceil(Statistic_EnergyHomeGrid_Month),
-                    Statistic_EnergyHomeGrid_Total: Math.ceil(Statistic_EnergyHomeGrid_Total),
-                    Statistic_EnergyHomeGrid_Year: Math.ceil(Statistic_EnergyHomeGrid_Year),
-                    Statistic_EnergyHomePv_Day: Math.ceil(Statistic_EnergyHomePv_Day),
-                    Statistic_EnergyHomePv_Month: Math.ceil(Statistic_EnergyHomePv_Month),
-                    Statistic_EnergyHomePv_Total: Math.ceil(Statistic_EnergyHomePv_Total),
-                    Statistic_EnergyHomePv_Year: Math.ceil(Statistic_EnergyHomePv_Year),
-                    Statistic_OwnConsumptionRate_Day: Math.ceil(Statistic_OwnConsumptionRate_Day),
-                    Statistic_OwnConsumptionRate_Month: Math.ceil(Statistic_OwnConsumptionRate_Month),
-                    Statistic_OwnConsumptionRate_Total: Math.ceil(Statistic_OwnConsumptionRate_Total),
-                    Statistic_OwnConsumptionRate_Year: Math.ceil(Statistic_OwnConsumptionRate_Year),
-                    Statistic_Yield_Day: Math.ceil(Statistic_Yield_Day),
-                    Statistic_Yield_Month: Math.ceil(Statistic_Yield_Month),
-                    Statistic_Yield_Total: Math.ceil(Statistic_Yield_Total),
-                    Statistic_Yield_Year: Math.ceil(Statistic_Yield_Year)
+                    Inverter: Math.floor(Inverter_P),
+                    PvGenerator: Math.floor(PvGenerator_P),
+                    Battery: Math.floor(Battery_P),
+                    Battery_SoC: Math.floor(Battery_SoC),
+                    HomeConsumption: Math.floor(Home_P),
+                    Grid: Math.floor(Grid_P),
+                    Statistic_Autarky_Day: Math.floor(Statistic_Autarky_Day),
+                    Statistic_Autarky_Month: Math.floor(Statistic_Autarky_Month),
+                    Statistic_Autarky_Total: Math.floor(Statistic_Autarky_Total),
+                    Statistic_Autarky_Year: Math.floor(Statistic_Autarky_Year),
+                    Statistic_CO2Saving_Day: Math.floor(Statistic_CO2Saving_Day),
+                    Statistic_CO2Saving_Month: Math.floor(Statistic_CO2Saving_Month),
+                    Statistic_CO2Saving_Total: Math.floor(Statistic_CO2Saving_Total),
+                    Statistic_CO2Saving_Year: Math.floor(Statistic_CO2Saving_Year),
+                    Statistic_EnergyHome_Day: Math.floor(Statistic_EnergyHome_Day),
+                    Statistic_EnergyHome_Month: Math.floor(Statistic_EnergyHome_Month),
+                    Statistic_EnergyHome_Total: Math.floor(Statistic_EnergyHome_Total),
+                    Statistic_EnergyHome_Year: Math.floor(Statistic_EnergyHome_Year),
+                    Statistic_EnergyHomeBat_Day: Math.floor(Statistic_EnergyHomeBat_Day),
+                    Statistic_EnergyHomeBat_Month: Math.floor(Statistic_EnergyHomeBat_Month),
+                    Statistic_EnergyHomeBat_Total: Math.floor(Statistic_EnergyHomeBat_Total),
+                    Statistic_EnergyHomeBat_Year: Math.floor(Statistic_EnergyHomeBat_Year),
+                    Statistic_EnergyHomeGrid_Day: Math.floor(Statistic_EnergyHomeGrid_Day),
+                    Statistic_EnergyHomeGrid_Month: Math.floor(Statistic_EnergyHomeGrid_Month),
+                    Statistic_EnergyHomeGrid_Total: Math.floor(Statistic_EnergyHomeGrid_Total),
+                    Statistic_EnergyHomeGrid_Year: Math.floor(Statistic_EnergyHomeGrid_Year),
+                    Statistic_EnergyHomePv_Day: Math.floor(Statistic_EnergyHomePv_Day),
+                    Statistic_EnergyHomePv_Month: Math.floor(Statistic_EnergyHomePv_Month),
+                    Statistic_EnergyHomePv_Total: Math.floor(Statistic_EnergyHomePv_Total),
+                    Statistic_EnergyHomePv_Year: Math.floor(Statistic_EnergyHomePv_Year),
+                    Statistic_OwnConsumptionRate_Day: Math.floor(Statistic_OwnConsumptionRate_Day),
+                    Statistic_OwnConsumptionRate_Month: Math.floor(Statistic_OwnConsumptionRate_Month),
+                    Statistic_OwnConsumptionRate_Total: Math.floor(Statistic_OwnConsumptionRate_Total),
+                    Statistic_OwnConsumptionRate_Year: Math.floor(Statistic_OwnConsumptionRate_Year),
+                    Statistic_Yield_Day: Math.floor(Statistic_Yield_Day),
+                    Statistic_Yield_Month: Math.floor(Statistic_Yield_Month),
+                    Statistic_Yield_Total: Math.floor(Statistic_Yield_Total),
+                    Statistic_Yield_Year: Math.floor(Statistic_Yield_Year)
                 }
                 current.sendSocketNotification("PLENTICORE_DATA", current.plenticoreData);
 

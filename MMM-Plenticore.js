@@ -44,7 +44,7 @@ Module.register("MMM-Plenticore", {
         } else if(this.pentiData.PvGenerator <= 0) {
             this.pentiData.PvGenerator = 'Standby';
         } else {
-            this.pentiData.PvGenerator = Math.ceil(this.pentiData.PvGenerator) + ' W >';
+            this.pentiData.PvGenerator = Math.floor(this.pentiData.PvGenerator) + ' W >';
         }
 
         if(this.pentiData.HomeConsumption >= 1000) {
@@ -52,9 +52,9 @@ Module.register("MMM-Plenticore", {
         } else if(this.pentiData.HomeConsumption <= -1000) {
             this.pentiData.HomeConsumption = '< ' +((this.pentiData.HomeConsumption / 1000).toFixed(2)*(-1)) + ' kW';
         } else if(this.pentiData.HomeConsumption < 0) {
-            this.pentiData.HomeConsumption = '< ' + (Math.ceil(this.pentiData.HomeConsumption)*(-1)) + ' W';
+            this.pentiData.HomeConsumption = '< ' + (Math.floor(this.pentiData.HomeConsumption)*(-1)) + ' W';
         } else {
-            this.pentiData.HomeConsumption = Math.ceil(this.pentiData.HomeConsumption) + ' W >';
+            this.pentiData.HomeConsumption = Math.floor(this.pentiData.HomeConsumption) + ' W >';
         }
 
         if(this.pentiData.Grid >= 1000) {
@@ -62,9 +62,9 @@ Module.register("MMM-Plenticore", {
         } else if(this.pentiData.Grid <= -1000) {
             this.pentiData.Grid = '< ' +((this.pentiData.Grid / 1000).toFixed(2)*(-1)) + ' kW';
         } else if(this.pentiData.Grid < 0) {
-            this.pentiData.Grid = '< ' + (Math.ceil(this.pentiData.Grid)*(-1)) + ' W';
+            this.pentiData.Grid = '< ' + (Math.floor(this.pentiData.Grid)*(-1)) + ' W';
         } else {
-            this.pentiData.Grid = Math.ceil(this.pentiData.Grid) + ' W >';
+            this.pentiData.Grid = Math.floor(this.pentiData.Grid) + ' W >';
         }
 
         if(this.pentiData.Battery >= 1000) {
@@ -72,9 +72,9 @@ Module.register("MMM-Plenticore", {
         } else if(this.pentiData.Battery <= -1000) {
             this.pentiData.Battery = '< ' +((this.pentiData.Battery / 1000).toFixed(2)*(-1)) + ' kW';
         } else if(this.pentiData.Battery < 0) {
-            this.pentiData.Battery = '< ' + (Math.ceil(this.pentiData.Battery)*(-1)) + ' W';
+            this.pentiData.Battery = '< ' + (Math.floor(this.pentiData.Battery)*(-1)) + ' W';
         } else {
-            this.pentiData.Battery = Math.ceil(this.pentiData.Battery) + ' W >';
+            this.pentiData.Battery = Math.floor(this.pentiData.Battery) + ' W >';
         }
 
         this.pentiData.Battery_SoC = 'Batterie: ' + this.pentiData.Battery_SoC + ' %';
