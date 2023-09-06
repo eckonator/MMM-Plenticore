@@ -228,7 +228,7 @@ Module.register("MMM-Plenticore", {
                 '    <div id="plenti-stats-inner" class="container">\n' +
                 '        <div class="row">\n' +
                 '            <div id="plenti-todayCount" class="col-12 col-md-6">\n' +
-                '                <h5>Heute</h5>\n' +
+                '                <h5>Heute (<span id="plenti-todayConsumption_kWh">--- kWh</span>)</h5>\n' +
                 '                <div class="col-md-6">\n' +
                 '                    <h6>Verbrauch</h6>\n' +
                 '                    <div class="ring-chart" id="plenti-todayConsumption"></div>\n' +
@@ -239,7 +239,7 @@ Module.register("MMM-Plenticore", {
                 '                </div>\n' +
                 '            </div>\n' +
                 '            <div id="plenti-monthCount" class="col-12 col-md-6">\n' +
-                '                <h5>Monat</h5>\n' +
+                '                <h5>Monat (<span id="plenti-monthConsumption_kWh">--- kWh</span>)</h5>\n' +
                 '                <div class="col-md-6">\n' +
                 '                    <h6>Verbrauch</h6>\n' +
                 '                    <div class="ring-chart" id="plenti-monthConsumption"></div>\n' +
@@ -252,7 +252,7 @@ Module.register("MMM-Plenticore", {
                 '        </div>\n' +
                 '        <div class="row">\n' +
                 '            <div id="plenti-yearCount" class="col-12 col-md-6">\n' +
-                '                <h5>Jahr</h5>\n' +
+                '                <h5>Jahr (<span id="plenti-yearConsumption_kWh">--- kWh</span>)</h5>\n' +
                 '                <div class="col-md-6">\n' +
                 '                    <h6>Verbrauch</h6>\n' +
                 '                    <div class="ring-chart" id="plenti-yearConsumption"></div>\n' +
@@ -263,7 +263,7 @@ Module.register("MMM-Plenticore", {
                 '                </div>\n' +
                 '            </div>\n' +
                 '            <div id="plenti-totalCount" class="col-12 col-md-6">\n' +
-                '                <h5>Total</h5>\n' +
+                '                <h5>Total (<span id="plenti-totalConsumption_kWh">--- kWh</span>)</h5>\n' +
                 '                <div class="col-md-6">\n' +
                 '                    <h6>Verbrauch</h6>\n' +
                 '                    <div class="ring-chart" id="plenti-totalConsumption"></div>\n' +
@@ -276,6 +276,18 @@ Module.register("MMM-Plenticore", {
                 '        </div>\n' +
                 '    </div>\n' +
                 '</div>';
+
+            let textElement = wrapperEl.querySelector('#plenti-todayConsumption_kWh');
+            textElement.textContent = (this.pentiData.Statistic_Yield_Day / 1000).toFixed(2) + ' kWh';
+
+            textElement = wrapperEl.querySelector('#plenti-monthConsumption_kWh');
+            textElement.textContent = (this.pentiData.Statistic_Yield_Month / 1000).toFixed(2) + ' kWh';
+
+            textElement = wrapperEl.querySelector('#plenti-yearConsumption_kWh');
+            textElement.textContent = (this.pentiData.Statistic_Yield_Year / 1000).toFixed(2) + ' kWh';
+
+            textElement = wrapperEl.querySelector('#plenti-totalConsumption_kWh');
+            textElement.textContent = (this.pentiData.Statistic_Yield_Total / 1000).toFixed(2) + ' kWh';
 
             this.createRingChart(wrapperEl, '#plenti-todayConsumption', this.pentiData.Statistic_OwnConsumptionRate_Day);
             this.createRingChart(wrapperEl, '#plenti-todayAutarky', this.pentiData.Statistic_Autarky_Day);

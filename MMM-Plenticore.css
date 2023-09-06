@@ -1,7 +1,9 @@
-.mmm-plenticore-wrapper svg {
+.mmm-plenticore-wrapper svg#a {
     font-family: "Open Sans", Arial, sans-serif;
     display: block;
     width: 100%;
+    margin: 0 auto 15px;
+    max-width: 300px;
     height: auto;
 }
 
