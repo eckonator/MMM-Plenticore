@@ -858,6 +858,39 @@ module.exports = NodeHelper.create({
                 let PvGenerator_P = 0;
                 let Battery_P = 0;
                 let Battery_SoC = 0;
+
+                let Statistic_Autarky_Day = 0;
+                let Statistic_Autarky_Month = 0;
+                let Statistic_Autarky_Total = 0;
+                let Statistic_Autarky_Year = 0;
+                let Statistic_CO2Saving_Day = 0;
+                let Statistic_CO2Saving_Month = 0;
+                let Statistic_CO2Saving_Total = 0;
+                let Statistic_CO2Saving_Year = 0;
+                let Statistic_EnergyHome_Day = 0;
+                let Statistic_EnergyHome_Month = 0;
+                let Statistic_EnergyHome_Total = 0;
+                let Statistic_EnergyHome_Year = 0;
+                let Statistic_EnergyHomeBat_Day = 0;
+                let Statistic_EnergyHomeBat_Month = 0;
+                let Statistic_EnergyHomeBat_Total = 0;
+                let Statistic_EnergyHomeBat_Year = 0;
+                let Statistic_EnergyHomeGrid_Day = 0;
+                let Statistic_EnergyHomeGrid_Month = 0;
+                let Statistic_EnergyHomeGrid_Total = 0;
+                let Statistic_EnergyHomeGrid_Year = 0;
+                let Statistic_EnergyHomePv_Day = 0;
+                let Statistic_EnergyHomePv_Month = 0;
+                let Statistic_EnergyHomePv_Total = 0;
+                let Statistic_EnergyHomePv_Year = 0;
+                let Statistic_OwnConsumptionRate_Day = 0;
+                let Statistic_OwnConsumptionRate_Month = 0;
+                let Statistic_OwnConsumptionRate_Total = 0;
+                let Statistic_OwnConsumptionRate_Year = 0;
+                let Statistic_Yield_Day = 0;
+                let Statistic_Yield_Month = 0;
+                let Statistic_Yield_Total = 0;
+                let Statistic_Yield_Year = 0;
                 for (const obj of current.proccessData) {
                     if('devices:local:ac' === obj.moduleid) {
                         for (const data of obj.processdata) {
@@ -900,6 +933,7 @@ module.exports = NodeHelper.create({
                             }
                         }
                     }
+
                     if('devices:local:battery' === obj.moduleid) {
                         for (const data of obj.processdata) {
                             if('P' === data.id) {
@@ -907,6 +941,133 @@ module.exports = NodeHelper.create({
                             }
                             if('SoC' === data.id) {
                                 Battery_SoC = Battery_SoC + data.value;
+                            }
+                        }
+                    }
+                    if ('scb:statistic:EnergyFlow' === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if ('Statistic:Autarky:Day' === data.id) {
+                                Statistic_Autarky_Day = data.value;
+                            }
+
+                            if ('Statistic:Autarky:Month' === data.id) {
+                                Statistic_Autarky_Month = data.value;
+                            }
+
+                            if ('Statistic:Autarky:Total' === data.id) {
+                                Statistic_Autarky_Total = data.value;
+                            }
+
+                            if ('Statistic:Autarky:Year' === data.id) {
+                                Statistic_Autarky_Year = data.value;
+                            }
+
+                            if ('Statistic:CO2Saving:Day' === data.id) {
+                                Statistic_CO2Saving_Day = data.value;
+                            }
+
+                            if ('Statistic:CO2Saving:Month' === data.id) {
+                                Statistic_CO2Saving_Month = data.value;
+                            }
+
+                            if ('Statistic:CO2Saving:Total' === data.id) {
+                                Statistic_CO2Saving_Total = data.value;
+                            }
+
+                            if ('Statistic:CO2Saving:Year' === data.id) {
+                                Statistic_CO2Saving_Year = data.value;
+                            }
+
+                            if ('Statistic:EnergyHome:Day' === data.id) {
+                                Statistic_EnergyHome_Day = data.value;
+                            }
+
+                            if ('Statistic:EnergyHome:Month' === data.id) {
+                                Statistic_EnergyHome_Month = data.value;
+                            }
+
+                            if ('Statistic:EnergyHome:Total' === data.id) {
+                                Statistic_EnergyHome_Total = data.value;
+                            }
+
+                            if ('Statistic:EnergyHome:Year' === data.id) {
+                                Statistic_EnergyHome_Year = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeBat:Day' === data.id) {
+                                Statistic_EnergyHomeBat_Day = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeBat:Month' === data.id) {
+                                Statistic_EnergyHomeBat_Month = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeBat:Total' === data.id) {
+                                Statistic_EnergyHomeBat_Total = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeBat:Year' === data.id) {
+                                Statistic_EnergyHomeBat_Year = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeGrid:Day' === data.id) {
+                                Statistic_EnergyHomeGrid_Day = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeGrid:Month' === data.id) {
+                                Statistic_EnergyHomeGrid_Month = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeGrid:Total' === data.id) {
+                                Statistic_EnergyHomeGrid_Total = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomeGrid:Year' === data.id) {
+                                Statistic_EnergyHomeGrid_Year = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomePv:Day' === data.id) {
+                                Statistic_EnergyHomePv_Day = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomePv:Month' === data.id) {
+                                Statistic_EnergyHomePv_Month = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomePv:Total' === data.id) {
+                                Statistic_EnergyHomePv_Total = data.value;
+                            }
+
+                            if ('Statistic:EnergyHomePv:Year' === data.id) {
+                                Statistic_EnergyHomePv_Year = data.value;
+                            }
+
+                            if ('Statistic:OwnConsumptionRate:Day' === data.id) {
+                                Statistic_OwnConsumptionRate_Day = data.value;
+                            }
+
+                            if ('Statistic:OwnConsumptionRate:Month' === data.id) {
+                                Statistic_OwnConsumptionRate_Month = data.value;
+                            }
+
+                            if ('Statistic:OwnConsumptionRate:Total' === data.id) {
+                                Statistic_OwnConsumptionRate_Total = data.value;
+                            }
+
+                            if ('Statistic:OwnConsumptionRate:Year' === data.id) {
+                                Statistic_OwnConsumptionRate_Year = data.value;
+                            }
+
+                            if ('Statistic:Yield:Day' === data.id) {
+                                Statistic_Yield_Day = data.value;
+                            }
+
+                            if ('Statistic:Yield:Month' === data.id) {
+                                Statistic_Yield_Month = data.value;
+                            }
+
+                            if ('Statistic:Yield:Total' === data.id) {
+                                Statistic_Yield_Total = data.value;
                             }
                         }
                     }
@@ -928,14 +1089,46 @@ module.exports = NodeHelper.create({
 
                 Grid_P = Inverter_P - Home_P;
 
-                //if(current.debugMode) {
+                if(current.debugMode) {
                     console.log('Inverter: ' + Math.floor(Inverter_P));
                     console.log('PvGenerator: ' + Math.floor(PvGenerator_P));
                     console.log('Battery: ' + Math.floor(Battery_P));
                     console.log('Battery_SoC: ' + Math.floor(Battery_SoC));
                     console.log('HomeConsumption: ' + Math.floor(Home_P));
                     console.log('Grid: ' + Math.floor(Grid_P));
-                //}
+                    console.log('Statistic_Autarky_Day: ' + Math.floor(Statistic_Autarky_Day));
+                    console.log('Statistic_Autarky_Month: ' + Math.floor(Statistic_Autarky_Month));
+                    console.log('Statistic_Autarky_Total: ' + Math.floor(Statistic_Autarky_Total));
+                    console.log('Statistic_Autarky_Year: ' + Math.floor(Statistic_Autarky_Year));
+                    console.log('Statistic_CO2Saving_Day: ' + Math.floor(Statistic_CO2Saving_Day));
+                    console.log('Statistic_CO2Saving_Month: ' + Math.floor(Statistic_CO2Saving_Month));
+                    console.log('Statistic_CO2Saving_Total: ' + Math.floor(Statistic_CO2Saving_Total));
+                    console.log('Statistic_CO2Saving_Year: ' + Math.floor(Statistic_CO2Saving_Year));
+                    console.log('Statistic_EnergyHome_Day: ' + Math.floor(Statistic_EnergyHome_Day));
+                    console.log('Statistic_EnergyHome_Month: ' + Math.floor(Statistic_EnergyHome_Month));
+                    console.log('Statistic_EnergyHome_Total: ' + Math.floor(Statistic_EnergyHome_Total));
+                    console.log('Statistic_EnergyHome_Year: ' + Math.floor(Statistic_EnergyHome_Year));
+                    console.log('Statistic_EnergyHomeBat_Day: ' + Math.floor(Statistic_EnergyHomeBat_Day));
+                    console.log('Statistic_EnergyHomeBat_Month: ' + Math.floor(Statistic_EnergyHomeBat_Month));
+                    console.log('Statistic_EnergyHomeBat_Total: ' + Math.floor(Statistic_EnergyHomeBat_Total));
+                    console.log('Statistic_EnergyHomeBat_Year: ' + Math.floor(Statistic_EnergyHomeBat_Year));
+                    console.log('Statistic_EnergyHomeGrid_Day: ' + Math.floor(Statistic_EnergyHomeGrid_Day));
+                    console.log('Statistic_EnergyHomeGrid_Month: ' + Math.floor(Statistic_EnergyHomeGrid_Month));
+                    console.log('Statistic_EnergyHomeGrid_Total: ' + Math.floor(Statistic_EnergyHomeGrid_Total));
+                    console.log('Statistic_EnergyHomeGrid_Year: ' + Math.floor(Statistic_EnergyHomeGrid_Year));
+                    console.log('Statistic_EnergyHomePv_Day: ' + Math.floor(Statistic_EnergyHomePv_Day));
+                    console.log('Statistic_EnergyHomePv_Month: ' + Math.floor(Statistic_EnergyHomePv_Month));
+                    console.log('Statistic_EnergyHomePv_Total: ' + Math.floor(Statistic_EnergyHomePv_Total));
+                    console.log('Statistic_EnergyHomePv_Year: ' + Math.floor(Statistic_EnergyHomePv_Year));
+                    console.log('Statistic_OwnConsumptionRate_Day: ' + Math.floor(Statistic_OwnConsumptionRate_Day));
+                    console.log('Statistic_OwnConsumptionRate_Month: ' + Math.floor(Statistic_OwnConsumptionRate_Month));
+                    console.log('Statistic_OwnConsumptionRate_Total: ' + Math.floor(Statistic_OwnConsumptionRate_Total));
+                    console.log('Statistic_OwnConsumptionRate_Year: ' + Math.floor(Statistic_OwnConsumptionRate_Year));
+                    console.log('Statistic_Yield_Day: ' + Math.floor(Statistic_Yield_Day));
+                    console.log('Statistic_Yield_Month: ' + Math.floor(Statistic_Yield_Month));
+                    console.log('Statistic_Yield_Total: ' + Math.floor(Statistic_Yield_Total));
+                    console.log('Statistic_Yield_Year: ' + Math.floor(Statistic_Yield_Year));
+                }
 
                 current.plenticoreData = {
                     Inverter: Math.floor(Inverter_P),
@@ -943,7 +1136,39 @@ module.exports = NodeHelper.create({
                     Battery: Math.floor(Battery_P),
                     Battery_SoC: Math.floor(Battery_SoC),
                     HomeConsumption: Math.floor(Home_P),
-                    Grid: Math.floor(Grid_P)
+                    Grid: Math.floor(Grid_P),
+                    Statistic_Autarky_Day: Math.floor(Statistic_Autarky_Day),
+                    Statistic_Autarky_Month: Math.floor(Statistic_Autarky_Month),
+                    Statistic_Autarky_Total: Math.floor(Statistic_Autarky_Total),
+                    Statistic_Autarky_Year: Math.floor(Statistic_Autarky_Year),
+                    Statistic_CO2Saving_Day: Math.floor(Statistic_CO2Saving_Day),
+                    Statistic_CO2Saving_Month: Math.floor(Statistic_CO2Saving_Month),
+                    Statistic_CO2Saving_Total: Math.floor(Statistic_CO2Saving_Total),
+                    Statistic_CO2Saving_Year: Math.floor(Statistic_CO2Saving_Year),
+                    Statistic_EnergyHome_Day: Math.floor(Statistic_EnergyHome_Day),
+                    Statistic_EnergyHome_Month: Math.floor(Statistic_EnergyHome_Month),
+                    Statistic_EnergyHome_Total: Math.floor(Statistic_EnergyHome_Total),
+                    Statistic_EnergyHome_Year: Math.floor(Statistic_EnergyHome_Year),
+                    Statistic_EnergyHomeBat_Day: Math.floor(Statistic_EnergyHomeBat_Day),
+                    Statistic_EnergyHomeBat_Month: Math.floor(Statistic_EnergyHomeBat_Month),
+                    Statistic_EnergyHomeBat_Total: Math.floor(Statistic_EnergyHomeBat_Total),
+                    Statistic_EnergyHomeBat_Year: Math.floor(Statistic_EnergyHomeBat_Year),
+                    Statistic_EnergyHomeGrid_Day: Math.floor(Statistic_EnergyHomeGrid_Day),
+                    Statistic_EnergyHomeGrid_Month: Math.floor(Statistic_EnergyHomeGrid_Month),
+                    Statistic_EnergyHomeGrid_Total: Math.floor(Statistic_EnergyHomeGrid_Total),
+                    Statistic_EnergyHomeGrid_Year: Math.floor(Statistic_EnergyHomeGrid_Year),
+                    Statistic_EnergyHomePv_Day: Math.floor(Statistic_EnergyHomePv_Day),
+                    Statistic_EnergyHomePv_Month: Math.floor(Statistic_EnergyHomePv_Month),
+                    Statistic_EnergyHomePv_Total: Math.floor(Statistic_EnergyHomePv_Total),
+                    Statistic_EnergyHomePv_Year: Math.floor(Statistic_EnergyHomePv_Year),
+                    Statistic_OwnConsumptionRate_Day: Math.floor(Statistic_OwnConsumptionRate_Day),
+                    Statistic_OwnConsumptionRate_Month: Math.floor(Statistic_OwnConsumptionRate_Month),
+                    Statistic_OwnConsumptionRate_Total: Math.floor(Statistic_OwnConsumptionRate_Total),
+                    Statistic_OwnConsumptionRate_Year: Math.floor(Statistic_OwnConsumptionRate_Year),
+                    Statistic_Yield_Day: Math.floor(Statistic_Yield_Day),
+                    Statistic_Yield_Month: Math.floor(Statistic_Yield_Month),
+                    Statistic_Yield_Total: Math.floor(Statistic_Yield_Total),
+                    Statistic_Yield_Year: Math.floor(Statistic_Yield_Year)
                 }
                 current.sendSocketNotification("PLENTICORE_DATA", current.plenticoreData);
 
