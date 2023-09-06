@@ -224,7 +224,7 @@ Module.register("MMM-Plenticore", {
 
         if(this.config.showStats && this.pentiData) {
             wrapperEl.innerHTML = wrapperEl.innerHTML + '<div id="plenti-stats">\n' +
-                '    <header class="module-header">Statistik</header>\n' +
+                '    <header class="module-header">PV-Anlage Statistik</header>\n' +
                 '    <div id="plenti-stats-inner" class="container">\n' +
                 '        <div class="row">\n' +
                 '            <div id="plenti-todayCount" class="col-12 col-md-6">\n' +
