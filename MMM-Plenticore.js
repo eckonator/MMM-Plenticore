@@ -121,7 +121,7 @@ Module.register("MMM-Plenticore", {
         text.setAttribute("y", "25");
         text.setAttribute("text-anchor", "middle");
         text.setAttribute("dominant-baseline", "middle");
-        text.setAttribute("font-size", "10");
+        text.setAttribute("font-size", "12");
         text.setAttribute("fill", "white");
         text.textContent = percent + "%";
         svg.appendChild(text);
