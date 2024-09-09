@@ -344,6 +344,15 @@ module.exports = NodeHelper.create({
                     type: "float"
                 }
             }
+        },
+        {
+            "moduleid": "scb:system",
+            "mappings": {
+                "System:Props:Battery": {
+                    id: "scb.system.System.Props.Battery",
+                    type: "boolean"
+                }
+            }
         }
     ],
     payloadSettings: [
@@ -848,7 +857,7 @@ module.exports = NodeHelper.create({
                 payload_2.push(params);
             }
         }
-
+        
         current.apiCall("POST", "processdata", payload, function (body, code, headers) {
             if (code === 200) {
                 current.proccessData = JSON.parse(body);
@@ -891,6 +900,9 @@ module.exports = NodeHelper.create({
                 let Statistic_Yield_Month = 0;
                 let Statistic_Yield_Total = 0;
                 let Statistic_Yield_Year = 0;
+                
+                let System_Props_Battery = 0;
+                
                 for (const obj of current.proccessData) {
                     if("devices:local:ac" === obj.moduleid) {
                         for (const data of obj.processdata) {
@@ -1044,6 +1056,13 @@ module.exports = NodeHelper.create({
                             }
                         }
                     }
+                    if("scb:system" === obj.moduleid) {
+                        for (const data of obj.processdata) {
+                            if("System:Props:Battery" === data.id) {
+                                System_Props_Battery = data.value;
+                            }
+                        }
+                    }
                     // console.log(`Module ID: ${obj.moduleid}`);
                     // for (const data of obj.processdata) {
                     //     console.log(data.id + ': ' + data.value);
@@ -1101,6 +1120,7 @@ module.exports = NodeHelper.create({
                     console.log("Statistic_Yield_Month: " + Math.floor(Statistic_Yield_Month));
                     console.log("Statistic_Yield_Total: " + Math.floor(Statistic_Yield_Total));
                     console.log("Statistic_Yield_Year: " + Math.floor(Statistic_Yield_Year));
+                    console.log("System_Props_Battery: " + Math.floor(System_Props_Battery));
                 }
 
                 current.plenticoreData = {
@@ -1141,7 +1161,8 @@ module.exports = NodeHelper.create({
                     Statistic_Yield_Day: Math.floor(Statistic_Yield_Day),
                     Statistic_Yield_Month: Math.floor(Statistic_Yield_Month),
                     Statistic_Yield_Total: Math.floor(Statistic_Yield_Total),
-                    Statistic_Yield_Year: Math.floor(Statistic_Yield_Year)
+                    Statistic_Yield_Year: Math.floor(Statistic_Yield_Year),
+                    System_Props_Battery: Math.floor(System_Props_Battery)
                 }
                 current.sendSocketNotification("PLENTICORE_DATA", current.plenticoreData);
 
