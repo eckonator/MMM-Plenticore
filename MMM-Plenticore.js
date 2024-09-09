@@ -78,8 +78,6 @@ Module.register("MMM-Plenticore", {
             this.pentiData.Battery = Math.floor(this.pentiData.Battery) + ' W >';
         }
 
-        this.pentiData.Battery_SoC = 'Batterie: ' + this.pentiData.Battery_SoC + ' %';
-
         this.updateDom();
     },
 
@@ -215,11 +213,16 @@ Module.register("MMM-Plenticore", {
             textElement = wrapperEl.querySelector('#plentiGrid');
             textElement.textContent = this.pentiData.Grid;
 
-            textElement = wrapperEl.querySelector('#plentiBattery');
-            textElement.textContent = this.pentiData.Battery;
-
-            textElement = wrapperEl.querySelector('#plentiBatterySoC');
-            textElement.textContent = this.pentiData.Battery_SoC;
+            if(this.pentiData.Battery_U > 0 || this.pentiData.Battery_SoC > 0) {
+                textElement = wrapperEl.querySelector('#plentiBattery');
+                textElement.textContent = this.pentiData.Battery;
+                textElement = wrapperEl.querySelector('#plentiBatterySoC');
+                textElement.textContent = 'Batterie: ' + this.pentiData.Battery_SoC + ' %';
+            } else {
+                textElement = wrapperEl.querySelector('#q');
+                textElement.style.display = 'none';
+                textElement.style.visibility = "hidden";
+            }
         }
 
         if(this.config.showStats && this.pentiData) {
