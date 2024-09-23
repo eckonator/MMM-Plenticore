@@ -215,11 +215,21 @@ Module.register("MMM-Plenticore", {
             textElement = wrapperEl.querySelector('#plentiGrid');
             textElement.textContent = this.pentiData.Grid;
 
-            textElement = wrapperEl.querySelector('#plentiBattery');
-            textElement.textContent = this.pentiData.Battery;
+            if(this.pentiData.Battery_Type === 0) {
+                textElement.textContent = this.pentiData.Battery;
+                textElement = wrapperEl.querySelector('#q');
 
-            textElement = wrapperEl.querySelector('#plentiBatterySoC');
-            textElement.textContent = this.pentiData.Battery_SoC;
+                textElement.style.display = 'none';
+                textElement = wrapperEl.querySelector('#plentiBatterySoC');
+                textElement.style.visibility = "hidden";
+                textElement.textContent = this.pentiData.Battery_SoC;
+            } else {
+                textElement = wrapperEl.querySelector('#plentiBattery');
+                textElement.textContent = this.pentiData.Battery;
+
+                textElement = wrapperEl.querySelector('#plentiBatterySoC');
+                textElement.textContent = this.pentiData.Battery_SoC;
+            }
         }
 
         if(this.config.showStats && this.pentiData) {

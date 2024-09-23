@@ -858,6 +858,7 @@ module.exports = NodeHelper.create({
                 let PvGenerator_P = 0;
                 let Battery_P = 0;
                 let Battery_SoC = 0;
+                let Battery_Type = 0;
 
                 let Statistic_Autarky_Day = 0;
                 let Statistic_Autarky_Month = 0;
@@ -941,6 +942,9 @@ module.exports = NodeHelper.create({
                             }
                             if('SoC' === data.id) {
                                 Battery_SoC = Battery_SoC + data.value;
+                            }
+                            if('Type' === data.id) {
+                                Battery_Type = data.value;
                             }
                         }
                     }
@@ -1067,6 +1071,7 @@ module.exports = NodeHelper.create({
                     console.log('PvGenerator: ' + Math.floor(PvGenerator_P));
                     console.log('Battery: ' + Math.floor(Battery_P));
                     console.log('Battery_SoC: ' + Math.floor(Battery_SoC));
+                    console.log('Battery_Type: ' + Math.floor(Battery_Type));
                     console.log('HomeConsumption: ' + Math.floor(Home_P));
                     console.log('Grid: ' + Math.floor(Grid_P));
                     console.log('Statistic_Autarky_Day: ' + Math.floor(Statistic_Autarky_Day));
@@ -1108,6 +1113,7 @@ module.exports = NodeHelper.create({
                     PvGenerator: Math.floor(PvGenerator_P),
                     Battery: Math.floor(Battery_P),
                     Battery_SoC: Math.floor(Battery_SoC),
+                    Battery_Type: Math.floor(Battery_Type),
                     HomeConsumption: Math.floor(Home_P),
                     Grid: Math.floor(Grid_P),
                     Statistic_Autarky_Day: Math.floor(Statistic_Autarky_Day),
