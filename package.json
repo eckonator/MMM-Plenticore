@@ -1,7 +1,7 @@
 {
   "name": "mmm-plenticore",
   "version": "0.1.0",
-  "description": "MagicMirrorModule-MMM-Plenticore, retrieves usage information from KOSTAL Plenticore",
+  "description": "A module for MagicMirror² to retriev and diesplay usage information from KOSTAL Plenticore.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": ""
@@ -11,7 +11,9 @@
     "url": "git@github.com/eckonator/MMM-Plenticore.git"
   },
   "keywords": [
-    "plenticore\u001b[Hmagi\u001b[C\u001b[F"
+    "plenticore",
+    "KOSTAL",
+    "Smart Home"
   ],
   "author": "M. Eckert",
   "license": "MIT",
