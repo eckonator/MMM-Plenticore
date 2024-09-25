@@ -2,7 +2,7 @@
 
 **Codebase from <https://github.com/pixcept/ioBroker.plenticore>**
 
-This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/). The module connects to the API of the KOSTAL Plenticore inverter and reads the current data and brings it to the output.
+This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror/). The module connects to the API of the KOSTAL Plenticore inverter and reads the current data and brings it to the output.
 
 ## Installation
 
