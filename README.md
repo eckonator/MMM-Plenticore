@@ -6,10 +6,20 @@ This is a module for the [MagicMirror²](https://github.com/MagicMirrorOrg/Magic
 
 ## Installation
 
-Navigate into your MagicMirror's `modules` folder and run:
+Just clone the module into the modules directory:
 
 ```bash
+cd ~/MagicMirror/modules
 git clone https://github.com/eckonator/MMM-Plenticore
+```
+
+## Update
+
+Just enter the MMM-Plenticore directory, pull the update and install the dependencies:
+
+```bash
+cd ~/MagicMirror/modules/MMM-Plenticore
+git pull
 ```
 
 ## Using the module
