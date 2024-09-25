@@ -1,22 +1,22 @@
-# MagicMirrorModule-MMM-Plenticore
+# MMM-Plenticore
 
-## Codebase from https://github.com/pixcept/ioBroker.plenticore
+**Codebase from <https://github.com/pixcept/ioBroker.plenticore>**
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/). The module connects to the API of the KOSTAL Plenticore inverter and reads the current data and brings it to the output.
 
 ## Installation
 
 Navigate into your MagicMirror's `modules` folder and run:
-```
-$ git clone https://github.com/eckonator/MMM-Plenticore
+
+```bash
+git clone https://github.com/eckonator/MMM-Plenticore
 ```
 
 ## Using the module
 
 To use this module, add the following configuration block to the modules array in the `config/config.js` file:
+
 ```js
-var config = {
-    modules: [
         {
             module: 'MMM-Plenticore',
             config: {
@@ -30,17 +30,13 @@ var config = {
                 ownJsonApiServerPort: 4000,
                 debugMode: false
             }
-        }
-    ]
-}
+        },
 ```
 
 ## Building from TypeScript source
 
 Todo...
 
-## Screenshots
+## Screenshot
 
-![alt text][ss_01]
-
-[ss_01]: MMM-Plenticore.png "Example of MMM-Plenticore module at work"
+![Example of MMM-Plenticore module at work](MMM-Plenticore.png)
