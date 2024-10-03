@@ -36,6 +36,7 @@ To use this module, add the following configuration block to the modules array i
                 password: "",
                 pollinterval: 20000,
                 showStats: true,
+                colored: false,
                 runOwnJsonApiServerInLocalNetwork: false,
                 ownJsonApiServerPort: 4000,
                 debugMode: false
