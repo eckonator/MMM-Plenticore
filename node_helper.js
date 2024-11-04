@@ -848,7 +848,7 @@ module.exports = NodeHelper.create({
                 payload_2.push(params);
             }
         }
-
+        
         current.apiCall("POST", "processdata", payload, function (body, code, headers) {
             if (code === 200) {
                 current.proccessData = JSON.parse(body);
@@ -856,6 +856,7 @@ module.exports = NodeHelper.create({
                 let Grid_P = 0;
                 let Home_P = 0;
                 let PvGenerator_P = 0;
+                let Battery_U = 0;
                 let Battery_P = 0;
                 let Battery_SoC = 0;
 
@@ -936,6 +937,9 @@ module.exports = NodeHelper.create({
 
                     if("devices:local:battery" === obj.moduleid) {
                         for (const data of obj.processdata) {
+                            if("U" === data.id) {
+                                Battery_U = Battery_U + data.value;
+                            }
                             if("P" === data.id) {
                                 Battery_P = Battery_P + data.value;
                             }
@@ -1066,6 +1070,7 @@ module.exports = NodeHelper.create({
                     console.log("Inverter: " + Math.floor(Inverter_P));
                     console.log("PvGenerator: " + Math.floor(PvGenerator_P));
                     console.log("Battery: " + Math.floor(Battery_P));
+                    console.log("Battery_U: " + Battery_U.toFixed(2));
                     console.log("Battery_SoC: " + Math.floor(Battery_SoC));
                     console.log("HomeConsumption: " + Math.floor(Home_P));
                     console.log("Grid: " + Math.floor(Grid_P));
@@ -1107,6 +1112,7 @@ module.exports = NodeHelper.create({
                     Inverter: Math.floor(Inverter_P),
                     PvGenerator: Math.floor(PvGenerator_P),
                     Battery: Math.floor(Battery_P),
+                    Battery_U: Battery_U.toFixed(2),
                     Battery_SoC: Math.floor(Battery_SoC),
                     HomeConsumption: Math.floor(Home_P),
                     Grid: Math.floor(Grid_P),
