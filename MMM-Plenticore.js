@@ -291,9 +291,18 @@ Module.register("MMM-Plenticore", {
                     wrapperEl.querySelector('#m').style.stroke = this.colorBatteryDischarge;
                     break;
                   default:
-                    textElement.style.fill = this.colorPvGenerator;
-                    wrapperEl.querySelector('#plentiHome').style.fill = this.colorPvGeneratorText;
-                    wrapperEl.querySelector('#m').style.stroke = this.colorPvGenerator;
+                    if((this.pentiDataOrig.Grid * -1) > 0 &&
+                        this.pentiDataOrig.Battery <= 0 &&
+                        ((this.pentiDataOrig.PvGenerator + this.pentiDataOrig.Battery) <= (this.pentiDataOrig.Grid * -1))
+                    ) {
+                        textElement.style.fill = this.colorGridPurchase;
+                        wrapperEl.querySelector('#plentiHome').style.fill = this.colorGridPurchaseText;
+                        wrapperEl.querySelector('#m').style.stroke = this.colorGridPurchase;
+                    } else {
+                        textElement.style.fill = this.colorPvGenerator;
+                        wrapperEl.querySelector('#plentiHome').style.fill = this.colorPvGeneratorText;
+                        wrapperEl.querySelector('#m').style.stroke = this.colorPvGenerator;
+                    }
                 }
             }
         }
