@@ -361,7 +361,7 @@ Module.register("MMM-Plenticore", {
                 '            </div>\n' +
                 '        </div>\n' +
                 '    </div>\n' +
-                '</div>';
+                '</div>');
 
             let textElement = wrapperEl.querySelector('#plenti-todayConsumption_kWh');
             textElement.textContent = (this.pentiData.Statistic_Yield_Day / 1000).toFixed(2) + ' kWh';
