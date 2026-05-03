@@ -151,7 +151,7 @@ Module.register("MMM-Plenticore", {
 
         const wrapperEl = document.createElement("div")
         wrapperEl.setAttribute("class", "mmm-plenticore-wrapper");
-        wrapperEl.innerHTML = '<svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 568.36 489.05">\n' +
+        const svgMarkup = '<svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 568.36 489.05">\n' +
             '  <g id="b">\n' +
             '    <polyline id="c" class="x" points="71.71 170.23 71.71 217.87 221.11 217.87"/>\n' +
             '    <g id="d">\n' +
@@ -217,7 +217,8 @@ Module.register("MMM-Plenticore", {
             '    <path class="y" d="m112.59,394.82h-8.42v-8.56h-23.27v8.56h-22.16v-8.56h-23.27v8.56h-8.49c-5.37,0-9.76,4.39-9.76,9.75v56.35c0,5.36,4.39,9.74,9.76,9.74h85.61c5.36.01,9.76-4.37,9.76-9.74v-56.36c0-5.36-4.4-9.75-9.76-9.75Zm-54.43,43.94h-11.18v11.23h-7.17v-11.23h-11.19v-7.12h11.19v-11.18h7.17v11.18h11.18v7.12Zm49.82-.65h-23.68v-7.37h23.68v7.37Z"/>\n' +
             '  </g>\n' +
             '</svg>';
-        
+        wrapperEl.innerHTML = svgMarkup;
+
         if(this.pentiData) {
             let textElement = wrapperEl.querySelector('#plentiPvGenerator');
             textElement.textContent = this.pentiData.PvGenerator;
@@ -308,7 +309,7 @@ Module.register("MMM-Plenticore", {
         }
 
         if(this.config.showStats && this.pentiData) {
-            wrapperEl.innerHTML = wrapperEl.innerHTML + '<div id="plenti-stats">\n' +
+            wrapperEl.insertAdjacentHTML('beforeend', '<div id="plenti-stats">\n' +
                 '    <header class="module-header">PV-Anlagen Statistik</header>\n' +
                 '    <div id="plenti-stats-inner" class="container">\n' +
                 '        <div class="row">\n' +
